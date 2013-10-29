@@ -35,6 +35,10 @@ public class Point2 {
         return y;
     }
     
+    public Point2 clone(Point2 p){
+        return new Point2(p.getX(), p.getY());
+    }
+    
     public static Point2 point2(double x, double y){ //static factory
         return new Point2(x,y);
     }
