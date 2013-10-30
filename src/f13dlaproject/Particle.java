@@ -10,18 +10,38 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 /**
- *
+ * A class that represents a particle of a crystal
  * @author stu781945
  */
 public class Particle {
-    
-    private static Particle uniqueInstance; //Singleton pattern create variable
-    private Point2 p; //holds location of particle
-    private Point2 dir; //holds a unit vector of the direction
-    private double vel; //holds magnitude of the velocity
-    private double a; //range of turn
-    private int numLaunched; //holds the number of particles launched
-    private static Random r = new Random(); //random generator
+    /**
+     * A unique instance of a particle  
+     */
+    private static Particle uniqueInstance; 
+    /**
+     * holds instance of a particle.   
+     */
+    private Point2 p; 
+     /**
+     * holds a unit vector of the direction   
+     */
+    private Point2 dir;
+    /**
+     * holds magnitude of the velocity  
+     */
+    private double vel;
+     /**
+     * stores the range of the turn 
+     */
+    private double a;
+    /**
+     * holds the number of particles launched
+     */
+    private int numLaunched;
+    /**
+     * a new Random   
+     */
+    private static Random r = new Random(); 
     
     private Particle(){ //private constructor
         this.p = point2(0, 0);
