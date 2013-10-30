@@ -42,7 +42,7 @@ public class Particle {
     
     public void setAngle(){
         double angle = 2*(r.nextDouble()-0.5)*this.a; //finds random double between -a, a
-        double oang = Math.acos(this.dir.getX()); //finds the original angle from origin
+        double oang = this.getAngle();
         this.dir.setX(Math.cos(oang + angle)); //calculates new x dir
         this.dir.setY(Math.sin(oang + angle)); // calculates new y dir
     }
@@ -59,6 +59,14 @@ public class Particle {
     public Point2 getPosition(){
         return p;
     }
+    
+    public double getAngle(){
+        double oang = Math.acos(this.dir.getX()); //finds the original angle from origin
+        if(this.dir.getY() < 0){
+            oang *= -1;
+        }
+        return oang;
+    } 
     
     public void move(){ //move and collison detection
         //this.setAngle();
@@ -84,7 +92,7 @@ public class Particle {
     
     @Override
     public String toString(){
-        return "Position: (" + p.getX() + ", " + p.getY() + ") Direction: " + Math.acos(dir.getX()) + " radians, Number Launched: " + this.numLaunched;  
+        return "Position: (" + p.getX() + ", " + p.getY() + ") Direction: " + this.getAngle() + " radians, Number Launched: " + this.numLaunched;  
     }
    
     /*
