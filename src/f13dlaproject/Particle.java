@@ -84,9 +84,9 @@ public class Particle {
     
     @Override
     public String toString(){
-        return "Position: (" + p.getX() + ", " + p.getY() + ") Direction: " + Math.cos(dir.getX()) + " radians";  
+        return "Position: (" + p.getX() + ", " + p.getY() + ") Direction: " + Math.acos(dir.getX()) + " radians";  
     }
-    
+   
     /*
      * static factory,
      * checks the singleton variable to see if it has been created yet,
