@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import static f13dlaproject.Particle.*;
 
 /**
  *
@@ -22,7 +23,8 @@ public class DLAFrame extends javax.swing.JFrame {
      */
     public DLAFrame() {
         initComponents();
-        
+        clock.start();
+        //Particle p = particle();
         
     }
 
@@ -30,6 +32,7 @@ public class DLAFrame extends javax.swing.JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+            particle().draw(g);
         }
     }
     
@@ -41,7 +44,12 @@ public class DLAFrame extends javax.swing.JFrame {
     });
     
     public void tick() {
-        
+        launchedLabel.setText("Particles Launched: " + Particle.particle().getLaunched());
+        sizeLabel.setText("Crystal Size: " + Crystal.crystal().getSize());
+        particle().setAngle();
+        System.out.println("hello");
+        particle().move();
+        repaint();
     }
 
     /**
@@ -100,6 +108,11 @@ public class DLAFrame extends javax.swing.JFrame {
         velocitylabel.setText("Velocity:");
 
         velocityfield.setText("1.0");
+        velocityfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                velocityfieldActionPerformed(evt);
+            }
+        });
 
         clearButton.setText("Clear");
 
@@ -167,8 +180,12 @@ public class DLAFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void afieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afieldActionPerformed
-        // TODO add your handling code here:
+        Particle.particle().setA(Double.parseDouble(afield.getText()));
     }//GEN-LAST:event_afieldActionPerformed
+
+    private void velocityfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityfieldActionPerformed
+        Particle.particle().setVelocity(Double.parseDouble(velocityfield.getText()));
+    }//GEN-LAST:event_velocityfieldActionPerformed
 
     /**
      * @param args the command line arguments
