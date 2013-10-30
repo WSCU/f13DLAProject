@@ -3,20 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package f13dlaproject;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author jiig
  */
 public class DLAFrame extends javax.swing.JFrame {
-
+    public int timerDelay = 30;
     /**
      * Creates new form DLAFrame
      */
     public DLAFrame() {
         initComponents();
+        
+        
+    }
+
+    public class MyPanel extends JPanel {
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+        }
+    }
+    
+    public Timer clock = new Timer(timerDelay, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            tick();
+        }
+    });
+    
+    public void tick() {
+        
     }
 
     /**
@@ -28,21 +53,122 @@ public class DLAFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new MyPanel();
+        sizeLabel = new javax.swing.JLabel();
+        launchedLabel = new javax.swing.JLabel();
+        afield = new javax.swing.JTextField();
+        alabel = new javax.swing.JLabel();
+        velocitylabel = new javax.swing.JLabel();
+        velocityfield = new javax.swing.JTextField();
+        clearButton = new javax.swing.JButton();
+        startButton = new javax.swing.JButton();
+        pauseButton = new javax.swing.JButton();
+        displayCheck = new javax.swing.JCheckBox();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        setResizable(true);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        jPanel1.setBackground(new java.awt.Color(254, 254, 254));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 413, Short.MAX_VALUE)
+        );
+
+        sizeLabel.setText("Crystal Size: 0");
+
+        launchedLabel.setText("Particles Launched: 0");
+
+        afield.setText("1");
+        afield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                afieldActionPerformed(evt);
+            }
+        });
+
+        alabel.setText("a:");
+
+        velocitylabel.setText("Velocity:");
+
+        velocityfield.setText("1.0");
+
+        clearButton.setText("Clear");
+
+        startButton.setText("Start");
+
+        pauseButton.setText("Pause");
+
+        displayCheck.setText("Display Particle");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(displayCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(velocitylabel)
+                                    .addComponent(alabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(afield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(launchedLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(sizeLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(clearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(startButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pauseButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(displayCheck)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(velocitylabel)
+                            .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(afield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(alabel))
+                        .addGap(18, 18, 18)
+                        .addComponent(launchedLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(sizeLabel))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void afieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_afieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +206,16 @@ public class DLAFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField afield;
+    private javax.swing.JLabel alabel;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JCheckBox displayCheck;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel launchedLabel;
+    private javax.swing.JButton pauseButton;
+    private javax.swing.JLabel sizeLabel;
+    private javax.swing.JButton startButton;
+    private javax.swing.JTextField velocityfield;
+    private javax.swing.JLabel velocitylabel;
     // End of variables declaration//GEN-END:variables
 }
