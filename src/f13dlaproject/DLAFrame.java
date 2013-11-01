@@ -30,13 +30,9 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      *
      */
-    public static final int maxZoom = 50;
-    /**
-     * 
-     */
     public static int cx, cy, dx, dy = 0;
     /**
-     * 
+     *
      */
     public static boolean paused = true;
     /**
@@ -130,7 +126,7 @@ public class DLAFrame extends javax.swing.JFrame {
             particle().move();
             repaint();
         }
-        zoomFactor.setValue((int)crystal().getZoom());
+        zoomFactor.setValue((int) crystal().getZoom());
     }
 
     /**
@@ -212,6 +208,11 @@ public class DLAFrame extends javax.swing.JFrame {
         });
 
         clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
 
         startButton.setText("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -397,16 +398,22 @@ public class DLAFrame extends javax.swing.JFrame {
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         // TODO add your handling code here:
-                cx = evt.getX();
+        cx = evt.getX();
         cy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         // TODO add your handling code here:
-        dx = cx-evt.getX();
-        dy = cy-evt.getY();
-       // System.out.println("huh?");
+        dx = (cx - evt.getX());
+        dy = (cy - evt.getY());
+        // System.out.println("huh?");
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        // TODO add your handling code here:
+        particle().clear();
+        crystal().clear();
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,6 +467,4 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox zoomCheck;
     private javax.swing.JSlider zoomFactor;
     // End of variables declaration//GEN-END:variables
-    
 }
-

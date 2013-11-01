@@ -124,6 +124,8 @@ public class Crystal {
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
         count = 0;
+        parts.add(new CParticle(point2(0, 0), count));
+        count = 0;
         zoom = 90;
         radius = 0;
     }
