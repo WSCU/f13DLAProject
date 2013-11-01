@@ -19,12 +19,17 @@ import static f13dlaproject.Crystal.*;
  */
 public class DLAFrame extends javax.swing.JFrame {
     public int timerDelay = 30;
+    public static boolean paused = true;
+    public static boolean display = true;
+    public static final int WIDTH = 600;
+    public static final int HEIGHT = 400;
     /**
      * Creates new form DLAFrame
      */
     public DLAFrame() {
         initComponents();
         //Particle p = particle();
+        
         
     }
 
@@ -51,6 +56,7 @@ public class DLAFrame extends javax.swing.JFrame {
         //System.out.println("hello");
         particle().move();
         repaint();
+        
     }
 
     /**
@@ -81,12 +87,13 @@ public class DLAFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,6 +139,11 @@ public class DLAFrame extends javax.swing.JFrame {
         });
 
         displayCheck.setText("Display Particle");
+        displayCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayCheckActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,7 +169,7 @@ public class DLAFrame extends javax.swing.JFrame {
                                     .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(launchedLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(sizeLabel))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +195,7 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(sizeLabel)
                 .addGap(171, 171, 171))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
         );
 
         pack();
@@ -201,11 +213,17 @@ public class DLAFrame extends javax.swing.JFrame {
         clock.start();
         Particle.particle().setVelocity(Double.parseDouble(velocityfield.getText()));
         Particle.particle().setA(Double.parseDouble(afield.getText()));
+        paused = false;
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
         clock.stop();
+        paused = true;
     }//GEN-LAST:event_pauseButtonActionPerformed
+
+    private void displayCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_displayCheckActionPerformed
 
     /**
      * @param args the command line arguments
