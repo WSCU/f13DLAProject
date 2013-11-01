@@ -136,7 +136,8 @@ public class Particle {
 
     public void draw(Graphics g) { //draw
         g.setColor(Color.RED);
-        g.fillOval((int) (p.getX()*crystal().getZoom()) + 200, (int) (p.getY()*crystal().getZoom()) + 200, 10, 10);
+        Crystal c = crystal();
+        g.fillOval((int)(p.getX()*c.getZoom() - c.getZoom()/2)+DLAFrame.WIDTH/2, (int)(p.getY()*c.getZoom()-c.getZoom()/2)+DLAFrame.HEIGHT/2, (int)(c.getZoom()), (int)(c.getZoom()));
     }
 
     @Override
