@@ -40,6 +40,9 @@ public class Crystal {
             g.setColor(Color.BLACK);
             g.fillOval((int)(p.getX()*zoom)+200, (int)(p.getY()*zoom)+200, 10, 10);
         } 
+        public Color choseColor(double r){ // coloring for the particles in the crystal
+            return Color.BLACK;
+        }
         
         public boolean collides(){
             Particle t = particle();
