@@ -18,22 +18,50 @@ import static f13dlaproject.Crystal.*;
  * @author jiig
  */
 public class DLAFrame extends javax.swing.JFrame {
+
     public int timerDelay = 30;
     public static boolean paused = true;
-    public static boolean display = true;
+    public static volatile boolean display = true;
     public static final int WIDTH = 600;
     public static final int HEIGHT = 400;
+    public static long time = 0;
+    Thread t;
+
     /**
      * Creates new form DLAFrame
      */
     public DLAFrame() {
         initComponents();
         //Particle p = particle();
+        t = new Thread(new Moveloop());
         
+    }
+    
+
+    public class Moveloop implements Runnable {
         
+        @Override
+        public void run() {
+            try {
+                while (!display) {
+                    particle().setAngle();
+                    particle().move();
+                    time++;
+                    if (time % Integer.parseInt(intervalfield.getText()) == 0) {
+                        Thread.sleep(50);
+                        repaint();
+                    }
+                    //System.out.println("HELLO");
+                }
+            } catch (InterruptedException e) {
+                return;
+            }
+        }
+
     }
 
     public class MyPanel extends JPanel {
+
         @Override
         public void paint(Graphics g) {
             super.paint(g);
@@ -41,22 +69,23 @@ public class DLAFrame extends javax.swing.JFrame {
             crystal().draw(g);
         }
     }
-    
+
     public Timer clock = new Timer(timerDelay, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             tick();
         }
     });
-    
+
     public void tick() {
         launchedLabel.setText("Particles Launched: " + Particle.particle().getLaunched());
         sizeLabel.setText("Crystal Size: " + Crystal.crystal().getSize());
-        particle().setAngle();
-        //System.out.println("hello");
-        particle().move();
-        repaint();
-        
+        if (display) {
+            particle().setAngle();
+            //System.out.println("hello");
+            particle().move();
+            repaint();
+        }
     }
 
     /**
@@ -79,6 +108,8 @@ public class DLAFrame extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
         pauseButton = new javax.swing.JButton();
         displayCheck = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        intervalfield = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,9 +170,19 @@ public class DLAFrame extends javax.swing.JFrame {
         });
 
         displayCheck.setText("Display Particle");
+        displayCheck.setSelected(true);
         displayCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayCheckActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Display Interval:");
+
+        intervalfield.setText("100");
+        intervalfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                intervalfieldActionPerformed(evt);
             }
         });
 
@@ -153,28 +194,32 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(displayCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(displayCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(velocitylabel)
-                                    .addComponent(alabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(afield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(velocitylabel)
+                                .addComponent(alabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(afield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(launchedLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(sizeLabel))
+                    .addComponent(sizeLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(intervalfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(clearButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(startButton)
@@ -182,6 +227,10 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(displayCheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(intervalfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(velocitylabel)
@@ -194,7 +243,7 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addComponent(launchedLabel)
                 .addGap(18, 18, 18)
                 .addComponent(sizeLabel)
-                .addGap(171, 171, 171))
+                .addGap(148, 148, 148))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
         );
 
@@ -220,10 +269,22 @@ public class DLAFrame extends javax.swing.JFrame {
         clock.stop();
         paused = true;
     }//GEN-LAST:event_pauseButtonActionPerformed
-
+    
     private void displayCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayCheckActionPerformed
-        // TODO add your handling code here:
+        display = displayCheck.isSelected();
+        if (!display) {
+            clock.start();
+            if (!t.isAlive()) {
+                t.start();
+            }
+        } else {
+            t.interrupt();
+        }
     }//GEN-LAST:event_displayCheckActionPerformed
+
+    private void intervalfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intervalfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_intervalfieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +326,8 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JLabel alabel;
     private javax.swing.JButton clearButton;
     private javax.swing.JCheckBox displayCheck;
+    private javax.swing.JTextField intervalfield;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel launchedLabel;
     private javax.swing.JButton pauseButton;
