@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import static f13dlaproject.Particle.*;
+import static f13dlaproject.Crystal.*;
 
 /**
  *
@@ -33,6 +34,7 @@ public class DLAFrame extends javax.swing.JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             particle().draw(g);
+            crystal().draw(g);
         }
     }
     
@@ -47,7 +49,7 @@ public class DLAFrame extends javax.swing.JFrame {
         launchedLabel.setText("Particles Launched: " + Particle.particle().getLaunched());
         sizeLabel.setText("Crystal Size: " + Crystal.crystal().getSize());
         particle().setAngle();
-        System.out.println("hello");
+        //System.out.println("hello");
         particle().move();
         repaint();
     }

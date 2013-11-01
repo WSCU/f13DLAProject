@@ -20,11 +20,12 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello world");
+        System.out.println(Math.acos(-1));
         Particle p = particle();
         Crystal c = crystal();
         System.out.println(p);
         p.setVelocity(10);
-        p.setA(Math.PI/2);
+        p.setA(Math.PI/4);
         //p.setAngle();
         p.move();
         System.out.println(p);
