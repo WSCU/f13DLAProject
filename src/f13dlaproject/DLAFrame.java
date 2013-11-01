@@ -32,7 +32,11 @@ public class DLAFrame extends javax.swing.JFrame {
      */
     public static final int maxZoom = 50;
     /**
-     *
+     * 
+     */
+    public static int cx, cy, dx, dy = 0;
+    /**
+     * 
      */
     public static boolean paused = true;
     /**
@@ -162,6 +166,16 @@ public class DLAFrame extends javax.swing.JFrame {
         setVisible(true);
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -379,6 +393,19 @@ public class DLAFrame extends javax.swing.JFrame {
             crystal().setZoom(zoomFactor.getValue());
         }
     }//GEN-LAST:event_zoomFactorStateChanged
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        // TODO add your handling code here:
+                cx = evt.getX();
+        cy = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        // TODO add your handling code here:
+        dx = cx-evt.getX();
+        dy = cy-evt.getY();
+       // System.out.println("huh?");
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments

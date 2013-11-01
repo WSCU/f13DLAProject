@@ -40,7 +40,7 @@ public class Crystal {
 
         public void draw(Graphics g) { //draw
             g.setColor(this.choseColor(this.num*.05));
-            g.fillOval((int) (p.getX() * zoom - zoom / 2) + DLAFrame.WIDTH / 2, (int) (p.getY() * zoom - zoom / 2) + DLAFrame.HEIGHT / 2, (int) zoom, (int) zoom);
+            g.fillOval((int) (p.getX() * zoom - zoom / 2) + (DLAFrame.WIDTH / 2) - DLAFrame.dx, (int) (p.getY() * zoom - zoom / 2) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy, (int) zoom, (int) zoom);
         }
 
         public Color choseColor(double rad) { // coloring for the particles in the crystal
