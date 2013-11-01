@@ -104,15 +104,22 @@ public class Crystal {
         double dist = Math.sqrt(Math.pow(part.p.getX(), 2) + Math.pow(part.p.getY(), 2));
         if (dist > radius) {
             radius = dist;
-                        zoom = 20 - Math.pow((radius) / 11, 2);
+           if(DLAFrame.autoZ){
+            zoom = 20 - Math.pow((radius) / 11, 2);
            if(zoom < 5){
                zoom = 5;
-           } 
+           }
+           DLAFrame.changeZF((int)zoom);
+           }
         }
     }
 
     public int getSize() { //returns the number of nodes
         return count;
+    }
+    
+    public void setZoom(int z){
+        this.zoom = z;
     }
 
     public void clear() { //resets the cystal to nothing
