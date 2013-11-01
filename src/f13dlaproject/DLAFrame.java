@@ -18,13 +18,33 @@ import static f13dlaproject.Crystal.*;
  * @author jiig
  */
 public class DLAFrame extends javax.swing.JFrame {
-
+    /**
+     * delays time by 30 units. 
+     */
     public int timerDelay = 30;
+    /**
+     * 
+     */
     public static boolean paused = true;
+    /**
+     * tells whether to display the individual particles moving
+     */
     public static volatile boolean display = true;
+    /**
+     * width of the panel
+     */
     public static final int WIDTH = 600;
+    /**
+     * height of the panel
+     */
     public static final int HEIGHT = 400;
+    /**
+     * holds time for the moveloop
+     */
     public static long time = 0;
+    /**
+     * Thread for the moveloop
+     */
     Thread t;
 
     /**
@@ -37,7 +57,9 @@ public class DLAFrame extends javax.swing.JFrame {
         
     }
     
-
+    /**
+     * Loop for multi-threaded display. Moves the particle every pass through the loop. Hangs the thread at the interval to paint the screen.
+     */
     public class Moveloop implements Runnable {
         
         @Override
@@ -69,14 +91,23 @@ public class DLAFrame extends javax.swing.JFrame {
             crystal().draw(g);
         }
     }
-
+    /**
+     * Measures the time. 
+     *
+     * @param timerDelay delays clock by 30 units. 
+     * @param ActionListener the current time. 
+     */
     public Timer clock = new Timer(timerDelay, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             tick();
         }
     });
-
+    /**
+     * Repaints at each tick. 
+     * Resets the particles launched and crystal size text at each tick. 
+     * Also repaints the window as particles move. 
+     */
     public void tick() {
         launchedLabel.setText("Particles Launched: " + Particle.particle().getLaunched());
         sizeLabel.setText("Crystal Size: " + Crystal.crystal().getSize());
