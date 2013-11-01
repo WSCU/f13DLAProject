@@ -109,7 +109,6 @@ public class Crystal {
            if(zoom < 5){
                zoom = 5;
            }
-           DLAFrame.changeZF((int)zoom);
            }
         }
     }

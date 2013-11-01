@@ -130,6 +130,7 @@ public class DLAFrame extends javax.swing.JFrame {
             particle().move();
             repaint();
         }
+        zoomFactor.setValue((int)crystal().getZoom());
     }
 
     /**
@@ -459,8 +460,6 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox zoomCheck;
     private javax.swing.JSlider zoomFactor;
     // End of variables declaration//GEN-END:variables
-    public static void changeZF(int z){
-        //zoomFactor.setValue(z);
-    }
+    
 }
 
