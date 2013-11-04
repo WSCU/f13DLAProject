@@ -4,6 +4,8 @@
  */
 package f13dlaproject;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author outcast
@@ -19,4 +21,8 @@ public interface Crystal {
     public int getSize();
     
     public boolean collides();
+    
+    public void setColorStrategy(ColoringStrategy Color);
+    
+    public void draw(Graphics g);
 }

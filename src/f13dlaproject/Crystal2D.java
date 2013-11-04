@@ -64,14 +64,17 @@ public class Crystal2D implements Crystal{
         parts.add(new CParticle(point2(0, 0), count));
     }
 
+    @Override
     public double getRadius() {
         return radius;
     }
 
+    @Override
     public double getZoom() {
         return zoom;
     }
 
+    @Override
     public void add(Particle2D p) {//adds node to crystal
         count++;
         CParticle part = new CParticle(p.getPosition(), count);
@@ -88,6 +91,7 @@ public class Crystal2D implements Crystal{
         }
     }
 
+    @Override
     public int getSize() { //returns the number of nodes
         return count;
     }
@@ -96,6 +100,7 @@ public class Crystal2D implements Crystal{
         this.zoom = z;
     }
     
+    @Override
     public void setColorStrategy(ColoringStrategy color){
         this.color = color;
     }
@@ -109,6 +114,7 @@ public class Crystal2D implements Crystal{
         radius = 0;
     }
 
+    @Override
     public boolean collides() {
         for (CParticle p : parts) {
             if (p.collides()) {
@@ -119,6 +125,7 @@ public class Crystal2D implements Crystal{
         return false;
     }
 
+    @Override
     public void draw(Graphics g) {//iterates the nodes and draws each one
         for (CParticle p : parts) {
             p.draw(g);
