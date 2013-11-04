@@ -4,6 +4,8 @@
  */
 package f13dlaproject;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author outcast
@@ -32,5 +34,5 @@ public interface Particle {
     
     public void clear();
     
-    public void draw();
+    public void draw(Graphics g);
 }

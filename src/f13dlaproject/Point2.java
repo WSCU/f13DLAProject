@@ -63,7 +63,7 @@ public class Point2 implements Point{
      * @param p the point to be cloned.  
      * @return the new cloned point.  
      */
-    public Point2 clone(Point2 p){
+    public Point clone(Point p){
         return new Point2(p.getX(), p.getY());
     }
      /**
@@ -74,6 +74,16 @@ public class Point2 implements Point{
      */   
     public static Point2 point2(double x, double y){ //static factory
         return new Point2(x,y);
+    }
+
+    @Override
+    public double getZ() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setZ(double z) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

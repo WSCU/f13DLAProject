@@ -28,11 +28,11 @@ public class Crystal2D implements Crystal{
      */
     private class CParticle {
 
-        private Point2 p; //position of node
+        private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
 
-        public CParticle(Point2 p, int num) { //constructor
+        public CParticle(Point p, int num) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
@@ -73,7 +73,7 @@ public class Crystal2D implements Crystal{
 
         public boolean collides() {
             Particle2D t = particle();
-            Point2 pos = t.getPosition();
+            Point pos = t.getPosition();
             double dist = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2));
             if (dist < 1) {
                 return true;
