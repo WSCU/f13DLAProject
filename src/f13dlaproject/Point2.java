@@ -9,7 +9,7 @@ package f13dlaproject;
  * 
  * @author stu781945
  */
-public class Point2 {
+public class Point2 implements Point{
     
     /**
      * The x coordinate of the Point.  

@@ -6,8 +6,8 @@
 
 package f13dlaproject;
 
-import static f13dlaproject.Particle.*;
-import static f13dlaproject.Crystal.*;
+import static f13dlaproject.Particle2D.*;
+import static f13dlaproject.Crystal2D.*;
 /**
  *
  * @author jiig
@@ -21,8 +21,8 @@ public class Main {
         // TODO code application logic here
         System.out.println("Hello world");
         System.out.println(Math.acos(-1));
-        Particle p = particle();
-        Crystal c = crystal();
+        Particle2D p = particle();
+        Crystal2D c = crystal2D();
         System.out.println(p);
         p.setVelocity(10);
         p.setA(Math.PI/4);
