@@ -20,6 +20,7 @@ public class Crystal2D implements Crystal{
     private int count;
     private double radius;
     private double zoom;
+    private ColoringStrategy color;
     private ArrayList<CParticle> parts = new ArrayList();
 
     /*
@@ -31,7 +32,7 @@ public class Crystal2D implements Crystal{
         private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
-
+        
         public CParticle(Point p, int num) { //constructor
             this.p = p.clone(p);
             this.num = num;
@@ -39,36 +40,8 @@ public class Crystal2D implements Crystal{
         }
 
         public void draw(Graphics g) { //draw
-            g.setColor(this.choseColor(this.num*.05));
+            g.setColor(color.chooseColor(num, dist, p));
             g.fillOval((int) (p.getX() * zoom - zoom / 2) + (DLAFrame.WIDTH / 2) - DLAFrame.dx, (int) (p.getY() * zoom - zoom / 2) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy, (int) zoom, (int) zoom);
-        }
-
-        public Color choseColor(double rad) { // coloring for the particles in the crystal
-            int ra = (int) rad;
-            int z = 10;
-            int rader = (int) rad * 10;
-            int radest = rader % 250;
-            int m = rader / 250 % 3;
-            int r = 0;
-            int g = 255;
-            int b = 0;
-            //System.out.println("m = "+m+",  radest = "+radest);
-            if (m == 0) {
-                r = 0;
-                g = 255 - radest;
-                b = 0 + radest;
-            }
-            if (m == 1) {
-                r = 0 + radest;
-                g = 0;
-                b = 255 - radest;
-            }
-            if (m == 2) {
-                r = 255 - radest;
-                g = 0 + radest;
-                b = 0;
-            }
-            return new Color(r, g, b);
         }
 
         public boolean collides() {
@@ -86,6 +59,8 @@ public class Crystal2D implements Crystal{
         this.count = 1;
         this.radius = 0;
         this.zoom = 20;
+        Color[] c = {};
+        this.color = new StandardColor(c);
         parts.add(new CParticle(point2(0, 0), count));
     }
 
@@ -119,6 +94,10 @@ public class Crystal2D implements Crystal{
     
     public void setZoom(int z){
         this.zoom = z;
+    }
+    
+    public void setColorStrategy(ColoringStrategy color){
+        this.color = color;
     }
 
     public void clear() { //resets the cystal to nothing
