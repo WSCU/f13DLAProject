@@ -24,4 +24,6 @@ public interface Point {
     
     public Point clone(Point p);
     
+    public double length();
+    
 }
