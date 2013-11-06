@@ -8,10 +8,13 @@ package f13dlaproject;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.Timer;
 import static f13dlaproject.Particle2D.*;
 import static f13dlaproject.Crystal2D.*;
+import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  *
@@ -90,6 +93,88 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         }
     }
+    private void displayGUI() {
+        final JFrame frame2 = new JFrame("Screenshot Dialog");
+        frame2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame2.addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                    frame2.setVisible(false);
+                    frame2.dispose();
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e){
+            }
+        });
+        JPanel contentPane = new JPanel();
+        contentPane.setBorder(
+        BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel1 = new DialogPanel(contentPane);
+        contentPane.add(panel1, "Panel 1");
+        frame2.setContentPane(contentPane);
+        frame2.pack();   
+        frame2.setLocationByPlatform(true);
+        frame2.setVisible(true);
+ 
+    }
+    
+    class DialogPanel extends JPanel {
+
+        private JTextField How;
+        private JLabel exlabel;
+        private JButton exbutton;
+        private JPanel contentPane;
+
+        public DialogPanel(JPanel panel) {
+
+            contentPane = panel;
+            How = new JTextField (1);
+            exlabel = new JLabel ("Example Label:");
+            exbutton = new JButton ("Button");
+            //adjust size and set layout
+            setPreferredSize (new Dimension (315, 85));
+            setLayout (null);
+
+            //set component bounds (only needed by Absolute Positioning)
+            How.setBounds (100, 50, 200, 25);
+            exlabel.setBounds (0, 50, 100, 20);
+            exbutton.setLocation(0, 0);
+            exbutton.setSize(100, 25);
+            exbutton.addActionListener( new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    System.out.println("Test Action");
+                }
+            });
+
+        //add components
+            add (How);
+            add (exlabel);
+            add (exbutton);
+        }
+    }
 
     public class MyPanel extends JPanel {
 
@@ -154,6 +239,7 @@ public class DLAFrame extends javax.swing.JFrame {
         zoomCheck = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         zoomFactor = new javax.swing.JSlider();
+        screenshotButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -261,6 +347,13 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
+        screenshotButton.setText("Screenshot");
+        screenshotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                screenshotButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,11 +371,6 @@ public class DLAFrame extends javax.swing.JFrame {
                         .addGap(21, 21, 21))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(displayCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(47, 47, 47)
@@ -299,17 +387,25 @@ public class DLAFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(velocitylabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(screenshotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(displayCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(clearButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(clearButton)
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addComponent(screenshotButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clearButton)
+                .addGap(4, 4, 4)
                 .addComponent(startButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(displayCheck)
@@ -415,6 +511,10 @@ public class DLAFrame extends javax.swing.JFrame {
         crystal2D().clear();
     }//GEN-LAST:event_clearButtonActionPerformed
 
+    private void screenshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotButtonActionPerformed
+    displayGUI();
+    }//GEN-LAST:event_screenshotButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -460,6 +560,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel launchedLabel;
     private javax.swing.JButton pauseButton;
+    private javax.swing.JButton screenshotButton;
     private javax.swing.JLabel sizeLabel;
     private javax.swing.JButton startButton;
     private javax.swing.JTextField velocityfield;
@@ -467,4 +568,6 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox zoomCheck;
     private javax.swing.JSlider zoomFactor;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JPanel panel1;
+    private javax.swing.JPanel panel2;
 }
