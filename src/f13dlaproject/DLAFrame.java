@@ -57,15 +57,14 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      * Thread for the moveloop
      */
-    Thread t;
+    public volatile Thread t;
 
     /**
      * Creates new form DLAFrame
      */
     public DLAFrame() {
         initComponents();
-        //Particle p = particle();
-        t = new Thread(new Moveloop());
+        //Particle p = particle();  
 
     }
 
@@ -77,21 +76,42 @@ public class DLAFrame extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            try {
-                while (!display) {
-                    particle().setAngle();
-                    particle().move();
-                    time++;
-                    if (time % Integer.parseInt(intervalfield.getText()) == 0) {
-                        Thread.sleep(50);
-                        repaint();
+            Thread thisThread = Thread.currentThread();
+            while (t == thisThread) {
+                try {
+                    while (!display) {
+                        particle().setAngle();
+                        particle().move();
+                        time++;
+                        if (time % Integer.parseInt(intervalfield.getText()) == 0) {
+                            Thread.sleep(50);
+                            updateLabels();
+                            repaint();
+                        }
+                        //System.out.println("HELLO");
                     }
-                    //System.out.println("HELLO");
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    return;
                 }
-            } catch (InterruptedException e) {
-                return;
             }
         }
+
+    }
+
+    /**
+     * Starts the moveloop thread.
+     */
+    public void start() {
+        t = new Thread(new Moveloop());
+        t.start();
+    }
+
+    /**
+     * Stops the moveloop thread.
+     */
+    public void stop() {
+        t = null;
     }
     private void displayGUI() {
         final JFrame frame2 = new JFrame("Screenshot Dialog");
@@ -203,15 +223,23 @@ public class DLAFrame extends javax.swing.JFrame {
      * text at each tick. Also repaints the window as particles move.
      */
     public void tick() {
-        launchedLabel.setText("Particles Launched: " + Particle2D.particle().getLaunched());
-        sizeLabel.setText("Crystal Size: " + Crystal2D.crystal2D().getSize());
+
         if (display) {
+            updateLabels();
             particle().setAngle();
             //System.out.println("hello");
             particle().move();
             repaint();
         }
         zoomFactor.setValue((int) crystal2D().getZoom());
+    }
+
+    /**
+     * Updates the particles launched and crystal size labels.
+     */
+    public void updateLabels() {
+        launchedLabel.setText("Particles Launched: " + Particle2D.particle().getLaunched());
+        sizeLabel.setText("Crystal Size: " + Crystal2D.crystal2D().getSize());
     }
 
     /**
@@ -462,12 +490,9 @@ public class DLAFrame extends javax.swing.JFrame {
     private void displayCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayCheckActionPerformed
         display = displayCheck.isSelected();
         if (!display) {
-            clock.start();
-            if (!t.isAlive()) {
-                t.start();
-            }
+            start();
         } else {
-            t.interrupt();
+            stop();
         }
     }//GEN-LAST:event_displayCheckActionPerformed
 
