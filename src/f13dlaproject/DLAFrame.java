@@ -512,9 +512,7 @@ public class DLAFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void screenshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotButtonActionPerformed
-        
-        displayGUI();
-        
+    displayGUI();
     }//GEN-LAST:event_screenshotButtonActionPerformed
 
     /**
