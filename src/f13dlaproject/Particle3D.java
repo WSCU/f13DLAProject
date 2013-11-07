@@ -87,37 +87,46 @@ public class Particle3D implements Particle {
     
     @Override
     public int getLaunched() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return numLaunched;
     }
     
     @Override
     public double getVelocity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return vel;
     }
     
     @Override
     public Point getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return p;
     }
     
-    @Override
-    public double getAngle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+    public Point getAngle() {
+        return dir;
     }
     
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         p.setX(p.getX() + dir.getX() * vel);
+        p.setY(p.getY() + dir.getY() * vel);
+        p.setZ(p.getZ() + dir.getZ() * vel);
+        double dist = p.length();
+        if(crystal3D().collides()||dist>bounds){
+            reset();
+            bounds = crystal3D().getRadius() + 5;
+        }
     }
     
     @Override
     public void reset() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.setPosition();
+        this.numLaunched++;
     }
     
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.reset();
+        this.numLaunched = 0;
     }
     
     @Override

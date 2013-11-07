@@ -25,9 +25,7 @@ public interface Particle {
     public double getVelocity();
     
     public Point getPosition();
-    
-    public double getAngle();
-    
+     
     public void move();
     
     public void reset();
