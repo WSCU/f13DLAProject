@@ -75,7 +75,7 @@ public class Crystal2D implements Crystal{
     }
 
     @Override
-    public void add(Particle2D p) {//adds node to crystal
+    public void add(Particle p) {//adds node to crystal
         count++;
         CParticle part = new CParticle(p.getPosition(), count);
         parts.add(part);

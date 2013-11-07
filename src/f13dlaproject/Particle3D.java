@@ -19,7 +19,7 @@ public class Particle3D implements Particle {
      */
     private static Particle2D uniqueInstance;
     /**
-     * holds instance of a particle.
+     * holds position of a particle.
      */
     private Point3 p;
     /**
@@ -49,27 +49,31 @@ public class Particle3D implements Particle {
     
     @Override
     public void setVelocity(double v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.vel=v;
     }
 
     @Override
     public void setA(double a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.a=a;
     }
 
     @Override
     public void setAngle() {
-        double angleMax = Math.cos(a);
+        double angleMax = a;//Math.cos(a);
         double x=r.nextDouble(),y=r.nextDouble(),z=r.nextDouble();
-        Point3 p2 = new Point3(x,y,z);
-        if(angleDiff(p,p2)>angleMax){ setAngle();}
-        else{p=p2;}
-        
+        Point3 p2 = new Point3(x,y,z);//Makes vector
+        Point3 newDir = new Point3(x/p2.length(),y/p2.length(),z/p2.length());//makes it a unit vector
+        if(angleDiff(dir,newDir)>angleMax){ setAngle();}//checks to see if the angle is within the cone
+        else{dir=newDir;}
     }
 
     @Override
     public void setPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double angleMax = a;//Math.cos(a);
+        double x=r.nextDouble(),y=r.nextDouble(),z=r.nextDouble();
+        Point3 p2 = new Point3(x,y,z);//Makes vector
+        Point3 newDir = new Point3(x/p2.length(),y/p2.length(),z/p2.length());//makes it a unit vector
+        p=newDir;
     }
 
     @Override
