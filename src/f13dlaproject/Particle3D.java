@@ -7,13 +7,14 @@ package f13dlaproject;
 import java.awt.Graphics;
 import java.util.Random;
 import static f13dlaproject.Point3.*;
+import static f13dlaproject.Crystal3D.*;
 
 /**
  *
  * @author stu738510
  */
 public class Particle3D implements Particle {
-    
+
     /**
      * A unique instance of a particle
      */
@@ -49,72 +50,79 @@ public class Particle3D implements Particle {
     
     @Override
     public void setVelocity(double v) {
-        this.vel=v;
+        this.vel = v;
     }
-
+    
     @Override
     public void setA(double a) {
-        this.a=a;
+        this.a = a;
     }
-
+    
     @Override
     public void setAngle() {
         double angleMax = a;//Math.cos(a);
-        double x=r.nextDouble(),y=r.nextDouble(),z=r.nextDouble();
-        Point3 p2 = new Point3(x,y,z);//Makes vector
-        Point3 newDir = new Point3(x/p2.length(),y/p2.length(),z/p2.length());//makes it a unit vector
-        if(angleDiff(dir,newDir)>angleMax){ setAngle();}//checks to see if the angle is within the cone
-        else{dir=newDir;}
+        double x = r.nextDouble(), y = r.nextDouble(), z = r.nextDouble();
+        Point3 p2 = new Point3(x, y, z);//Makes vector
+        Point3 newDir = new Point3(x / p2.length(), y / p2.length(), z / p2.length());//makes it a unit vector
+        if (angleDiff(dir, newDir) > angleMax) {
+            setAngle();
+        }//checks to see if the angle is within the cone
+        else {
+            dir = newDir;
+        }
     }
-
+    
     @Override
     public void setPosition() {
-        double angleMax = a;//Math.cos(a);
-        double x=r.nextDouble(),y=r.nextDouble(),z=r.nextDouble();
-        Point3 p2 = new Point3(x,y,z);//Makes vector
-        Point3 newDir = new Point3(x/p2.length(),y/p2.length(),z/p2.length());//makes it a unit vector
-        p=newDir;
+        double theta = r.nextDouble() * 2 * Math.PI;
+        double phi = r.nextDouble() * 2 * Math.PI;
+        double r = crystal3D().getRadius() + 5;
+        double x = r * Math.sin(theta) * Math.cos(phi);
+        double y = r * Math.sin(theta) * Math.sin(phi);
+        double z = r * Math.cos(theta);
+        this.p.setX(x);
+        this.p.setY(y);
+        this.p.setZ(z);
     }
-
+    
     @Override
     public int getLaunched() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public double getVelocity() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Point getPosition() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public double getAngle() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void move() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void reset() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void clear() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void draw(Graphics g) {
-       
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

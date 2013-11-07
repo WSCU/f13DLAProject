@@ -7,6 +7,7 @@ package f13dlaproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import static f13dlaproject.Point3.*;
 
 /**
  *
@@ -42,7 +43,13 @@ public class Crystal3D implements Crystal{
 
     @Override
     public void add(Particle p) {
-        
+        count++;
+        CParticle part = new CParticle(p.getPosition(), count);
+        parts.add(part);
+        double dist = part.p.length();
+        if (dist > radius) {
+            radius = dist;
+        }
     }
 
     @Override
@@ -76,8 +83,11 @@ public class Crystal3D implements Crystal{
     }
 
     private static class CParticle {
+        private Point p; //position of node
+        private int num; //number in which it was added to crystal
+        private double dist; //distance from center of cystal
 
-        public CParticle() {
+        public CParticle(Point point, int i) {
         }
         
         public boolean collides(){
