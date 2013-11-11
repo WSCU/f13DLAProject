@@ -83,12 +83,28 @@ public class Crystal3D implements Crystal{
         return instance;
     }
 
+    @Override
+    public void setZoom(int z) {
+        this.zoom = z;
+    }
+
+    @Override
+    public void clear() {
+        this.count=1;
+        this.radius=1;
+        this.zoom = 0;
+        Color [] c = {Color.RED,Color.BLUE,Color.BLACK};
+        this.color= new StandardColor(c);
+    }
+
     private static class CParticle {
         private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
 
         public CParticle(Point point, int i) {
+            this.p = point.clone(p);
+            this.num = i;
         }
         
         public boolean collides(){
@@ -101,7 +117,7 @@ public class Crystal3D implements Crystal{
             return false;
         }
         public void draw(Graphics g){
-              throw new UnsupportedOperationException("Not supported yet.");
+              
         }
     }
     

@@ -96,6 +96,7 @@ public class Crystal2D implements Crystal{
         return count;
     }
     
+    @Override
     public void setZoom(int z){
         this.zoom = z;
     }
@@ -105,6 +106,7 @@ public class Crystal2D implements Crystal{
         this.color = color;
     }
 
+    @Override
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
         count = 0;

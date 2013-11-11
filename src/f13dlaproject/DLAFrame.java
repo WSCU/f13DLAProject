@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.Timer;
 import static f13dlaproject.Particle2D.*;
 import static f13dlaproject.Crystal2D.*;
+import static f13dlaproject.Particle3D.*;
+import static f13dlaproject.Crystal3D.*;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -62,7 +64,20 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      * Creates new form DLAFrame
      */
+    
+    /**
+     * creates the particle variable(can hold 2D or 3D)
+     */
+    public Particle p;
+    /**
+     * creates the crystal variable(hold 2 or 3 D)
+     */
+    public Crystal c;
+    
+    
     public DLAFrame() {
+        p = particle2D();
+        c = crystal2D();
         initComponents();
         //Particle p = particle2D();  
 
@@ -80,8 +95,8 @@ public class DLAFrame extends javax.swing.JFrame {
             while (t == thisThread) {
                 try {
                     while (!display) {
-                        particle2D().setAngle();
-                        particle2D().move();
+                        p.setAngle();
+                        p.move();
                         time++;
                         if (time % Integer.parseInt(intervalfield.getText()) == 0) {
                             Thread.sleep(50);
@@ -201,8 +216,8 @@ public class DLAFrame extends javax.swing.JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            particle2D().draw(g);
-            crystal2D().draw(g);
+            p.draw(g);
+            c.draw(g);
         }
     }
     /**
@@ -226,12 +241,12 @@ public class DLAFrame extends javax.swing.JFrame {
 
         if (display) {
             updateLabels();
-            particle2D().setAngle();
+            p.setAngle();
             //System.out.println("hello");
-            particle2D().move();
+            p.move();
             repaint();
         }
-        zoomFactor.setValue((int) crystal2D().getZoom());
+        zoomFactor.setValue((int) c.getZoom());
     }
 
     /**
@@ -267,7 +282,7 @@ public class DLAFrame extends javax.swing.JFrame {
         zoomCheck = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         zoomFactor = new javax.swing.JSlider();
-        screenshotButton = new javax.swing.JButton();
+        cDim = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -375,10 +390,10 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
-        screenshotButton.setText("Screenshot");
-        screenshotButton.addActionListener(new java.awt.event.ActionListener() {
+        cDim.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2D", "3D" }));
+        cDim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                screenshotButtonActionPerformed(evt);
+                cDimActionPerformed(evt);
             }
         });
 
@@ -415,28 +430,31 @@ public class DLAFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(velocitylabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(screenshotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(displayCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clearButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(displayCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cDim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addComponent(screenshotButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(clearButton)
-                .addGap(4, 4, 4)
-                .addComponent(startButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(startButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(displayCheck)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(displayCheck)
+                    .addComponent(cDim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -468,17 +486,17 @@ public class DLAFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void afieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afieldActionPerformed
-        Particle2D.particle2D().setA(Double.parseDouble(afield.getText()));
+        p.setA(Double.parseDouble(afield.getText()));
     }//GEN-LAST:event_afieldActionPerformed
 
     private void velocityfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityfieldActionPerformed
-        Particle2D.particle2D().setVelocity(Double.parseDouble(velocityfield.getText()));
+        p.setVelocity(Double.parseDouble(velocityfield.getText()));
     }//GEN-LAST:event_velocityfieldActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         clock.start();
-        Particle2D.particle2D().setVelocity(Double.parseDouble(velocityfield.getText()));
-        Particle2D.particle2D().setA(Double.parseDouble(afield.getText()));
+        p.setVelocity(Double.parseDouble(velocityfield.getText()));
+        p.setA(Double.parseDouble(afield.getText()));
         paused = false;
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -513,7 +531,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private void zoomFactorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_zoomFactorStateChanged
         // TODO add your handling code here:
         if (!autoZ) {
-            crystal2D().setZoom(zoomFactor.getValue());
+            c.setZoom(zoomFactor.getValue());
         }
     }//GEN-LAST:event_zoomFactorStateChanged
 
@@ -532,13 +550,24 @@ public class DLAFrame extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
-        particle2D().clear();
-        crystal2D().clear();
+        p.clear();
+        c.clear();
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void screenshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotButtonActionPerformed
     displayGUI();
     }//GEN-LAST:event_screenshotButtonActionPerformed
+
+    private void cDimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cDimActionPerformed
+        if(cDim.getSelectedIndex() == 1){
+            p = particle3D();
+            c = crystal3D();
+        }
+        else{
+            p = particle2D();
+            c = crystal2D();
+        }
+    }//GEN-LAST:event_cDimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,6 +606,7 @@ public class DLAFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField afield;
     private javax.swing.JLabel alabel;
+    private javax.swing.JComboBox cDim;
     private javax.swing.JButton clearButton;
     private javax.swing.JCheckBox displayCheck;
     private javax.swing.JTextField intervalfield;
@@ -585,7 +615,6 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel launchedLabel;
     private javax.swing.JButton pauseButton;
-    private javax.swing.JButton screenshotButton;
     private javax.swing.JLabel sizeLabel;
     private javax.swing.JButton startButton;
     private javax.swing.JTextField velocityfield;

@@ -20,32 +20,32 @@ public class Point3 implements Point {
     
     @Override
     public double getX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return x;
     }
 
     @Override
     public double getY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return y;
     }
 
     @Override
     public double getZ() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return z;
     }
 
     @Override
     public void setX(double x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.x = x;
     }
 
     @Override
     public void setY(double y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.y = y;
     }
 
     @Override
     public void setZ(double z) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.z = z;
     }
 
     @Override
@@ -56,6 +56,10 @@ public class Point3 implements Point {
     public static double angleDiff(Point3 v1, Point3 v2){
         double h = (v1.getX()*v2.getX()+v1.getY()*v2.getY()+v1.getZ()*v2.getZ());
         return Math.acos(h/(v1.length()*v2.length()));
+    }
+    
+    public static Point3 point3(double x, double y, double z){
+        return new Point3(x,y,z);
     }
 
     @Override

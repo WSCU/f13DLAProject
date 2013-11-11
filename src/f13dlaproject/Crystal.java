@@ -24,5 +24,9 @@ public interface Crystal {
     
     public void setColorStrategy(ColoringStrategy Color);
     
+    public void setZoom(int z);
+    
     public void draw(Graphics g);
+    
+    public void clear();
 }

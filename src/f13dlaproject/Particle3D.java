@@ -4,10 +4,12 @@
  */
 package f13dlaproject;
 
+import static f13dlaproject.Crystal3D.*;
 import java.awt.Graphics;
 import java.util.Random;
 import static f13dlaproject.Point3.*;
 import static f13dlaproject.Crystal3D.*;
+import static f13dlaproject.Point3.*;
 
 /**
  *
@@ -132,7 +134,22 @@ public class Particle3D implements Particle {
     @Override
     public void draw(Graphics g) {
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+    
+    private Particle3D(){
+         this.p = point3(0, 0, 0);
+        double rad = crystal3D().getRadius() + 5;
+        double angle = r.nextDouble() * 2 * Math.PI;
+        p.setX(rad * Math.cos(angle));
+        p.setY(rad * Math.sin(angle));
+        this.bounds = rad + 15;
+        this.vel = 0;
+        this.dir = point3(0, 0, 0);
+        dir.setX(-Math.cos(angle));
+        dir.setY(-Math.sin(angle));
+        this.a = 0;
+        this.numLaunched = 1;
     }
     
     /*
