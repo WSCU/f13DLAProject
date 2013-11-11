@@ -21,7 +21,7 @@ public class Main {
         // TODO code application logic here
         System.out.println("Hello world");
         System.out.println(Math.acos(-1));
-        Particle2D p = particle();
+        Particle2D p = particle2D();
         Crystal2D c = crystal2D();
         System.out.println(p);
         p.setVelocity(10);

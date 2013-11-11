@@ -64,12 +64,12 @@ public class DLAFrame extends javax.swing.JFrame {
      */
     public DLAFrame() {
         initComponents();
-        //Particle p = particle();  
+        //Particle p = particle2D();  
 
     }
 
     /**
-     * Loop for multi-threaded display. Moves the particle every pass through
+     * Loop for multi-threaded display. Moves the particle2D every pass through
      * the loop. Hangs the thread at the interval to paint the screen.
      */
     public class Moveloop implements Runnable {
@@ -80,8 +80,8 @@ public class DLAFrame extends javax.swing.JFrame {
             while (t == thisThread) {
                 try {
                     while (!display) {
-                        particle().setAngle();
-                        particle().move();
+                        particle2D().setAngle();
+                        particle2D().move();
                         time++;
                         if (time % Integer.parseInt(intervalfield.getText()) == 0) {
                             Thread.sleep(50);
@@ -201,7 +201,7 @@ public class DLAFrame extends javax.swing.JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            particle().draw(g);
+            particle2D().draw(g);
             crystal2D().draw(g);
         }
     }
@@ -226,9 +226,9 @@ public class DLAFrame extends javax.swing.JFrame {
 
         if (display) {
             updateLabels();
-            particle().setAngle();
+            particle2D().setAngle();
             //System.out.println("hello");
-            particle().move();
+            particle2D().move();
             repaint();
         }
         zoomFactor.setValue((int) crystal2D().getZoom());
@@ -238,7 +238,7 @@ public class DLAFrame extends javax.swing.JFrame {
      * Updates the particles launched and crystal size labels.
      */
     public void updateLabels() {
-        launchedLabel.setText("Particles Launched: " + Particle2D.particle().getLaunched());
+        launchedLabel.setText("Particles Launched: " + Particle2D.particle2D().getLaunched());
         sizeLabel.setText("Crystal Size: " + Crystal2D.crystal2D().getSize());
     }
 
@@ -468,17 +468,17 @@ public class DLAFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void afieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afieldActionPerformed
-        Particle2D.particle().setA(Double.parseDouble(afield.getText()));
+        Particle2D.particle2D().setA(Double.parseDouble(afield.getText()));
     }//GEN-LAST:event_afieldActionPerformed
 
     private void velocityfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityfieldActionPerformed
-        Particle2D.particle().setVelocity(Double.parseDouble(velocityfield.getText()));
+        Particle2D.particle2D().setVelocity(Double.parseDouble(velocityfield.getText()));
     }//GEN-LAST:event_velocityfieldActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         clock.start();
-        Particle2D.particle().setVelocity(Double.parseDouble(velocityfield.getText()));
-        Particle2D.particle().setA(Double.parseDouble(afield.getText()));
+        Particle2D.particle2D().setVelocity(Double.parseDouble(velocityfield.getText()));
+        Particle2D.particle2D().setA(Double.parseDouble(afield.getText()));
         paused = false;
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -532,7 +532,7 @@ public class DLAFrame extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
-        particle().clear();
+        particle2D().clear();
         crystal2D().clear();
     }//GEN-LAST:event_clearButtonActionPerformed
 

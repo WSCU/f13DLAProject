@@ -45,7 +45,7 @@ public class Crystal2D implements Crystal{
         }
 
         public boolean collides() {
-            Particle2D t = particle();
+            Particle2D t = particle2D();
             Point pos = t.getPosition();
             double dist = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2));
             if (dist < 1) {
@@ -118,7 +118,7 @@ public class Crystal2D implements Crystal{
     public boolean collides() {
         for (CParticle p : parts) {
             if (p.collides()) {
-                this.add(particle());
+                this.add(particle2D());
                 return true;
             }
         }

@@ -11,18 +11,18 @@ import java.awt.Graphics;
 import java.util.Random;
 
 /**
- * A class that represents a particle of a crystal
+ * A class that represents a particle2D of a crystal
  *
  * @author Graham and Ryan
  */
 public class Particle2D implements Particle {
 
     /**
-     * A unique instance of a particle
+     * A unique instance of a particle2D
      */
     private static Particle2D uniqueInstance;
     /**
-     * holds instance of a particle.
+     * holds instance of a particle2D.
      */
     private Point2 p;
     /**
@@ -124,7 +124,7 @@ public class Particle2D implements Particle {
         }
     }
 
-    public void reset() { //reset particle to origin
+    public void reset() { //reset particle2D to origin
         this.setPosition();
         this.numLaunched++;
     }
@@ -151,7 +151,7 @@ public class Particle2D implements Particle {
      * if not create instance
      * return instance
      */
-    public static Particle2D particle() {
+    public static Particle2D particle2D() {
         if (uniqueInstance == null) {
             uniqueInstance = new Particle2D();
         }

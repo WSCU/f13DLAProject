@@ -92,7 +92,7 @@ public class Crystal3D implements Crystal{
         }
         
         public boolean collides(){
-             Particle3D t = particle();
+             Particle3D t = particle3D();
             Point pos = t.getPosition();
             double l = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2)+ Math.pow(p.getZ() - pos.getZ(), 2));
             if (l < 1) {

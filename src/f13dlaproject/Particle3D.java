@@ -16,11 +16,11 @@ import static f13dlaproject.Crystal3D.*;
 public class Particle3D implements Particle {
 
     /**
-     * A unique instance of a particle
+     * A unique instance of a particle3D
      */
     private static Particle3D uniqueInstance;
     /**
-     * holds position of a particle.
+     * holds position of a particle3D.
      */
     private Point3 p;
     /**
@@ -141,7 +141,7 @@ public class Particle3D implements Particle {
      * if not create instance
      * return instance
      */
-    public static Particle3D particle() {
+    public static Particle3D particle3D() {
         if (uniqueInstance == null) {
             uniqueInstance = new Particle3D();
         }
