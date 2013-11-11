@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import static f13dlaproject.Point3.*;
+import static f13dlaproject.Particle3D.*;
 
 /**
  *
@@ -91,10 +92,16 @@ public class Crystal3D implements Crystal{
         }
         
         public boolean collides(){
-            return true;
+             Particle3D t = particle();
+            Point pos = t.getPosition();
+            double l = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2)+ Math.pow(p.getZ() - pos.getZ(), 2));
+            if (l < 1) {
+                return true;
+            }
+            return false;
         }
         public void draw(Graphics g){
-            
+              throw new UnsupportedOperationException("Not supported yet.");
         }
     }
     

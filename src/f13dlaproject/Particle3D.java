@@ -18,7 +18,7 @@ public class Particle3D implements Particle {
     /**
      * A unique instance of a particle
      */
-    private static Particle2D uniqueInstance;
+    private static Particle3D uniqueInstance;
     /**
      * holds position of a particle.
      */
@@ -133,5 +133,18 @@ public class Particle3D implements Particle {
     public void draw(Graphics g) {
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /*
+     * static factory,
+     * checks the singleton variable to see if it has been created yet,
+     * if not create instance
+     * return instance
+     */
+    public static Particle3D particle() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Particle3D();
+        }
+        return uniqueInstance;
     }
 }
