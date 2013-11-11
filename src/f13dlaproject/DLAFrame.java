@@ -90,7 +90,7 @@ public class DLAFrame extends javax.swing.JFrame {
                         }
                         //System.out.println("HELLO");
                     }
-                    Thread.sleep(50);
+                    
                 } catch (InterruptedException e) {
                     return;
                 }
