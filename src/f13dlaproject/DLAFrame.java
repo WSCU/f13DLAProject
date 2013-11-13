@@ -422,7 +422,7 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
-        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard Distance", "Standard Time", "Ring", "ProgPie", "Pie", "Structure" }));
+        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard Distance", "Standard Time", "Ring", "ProgPie", "Pie", "Structure", "Nuclear", " " }));
         colorStrat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorStratActionPerformed(evt);
@@ -642,6 +642,9 @@ public class DLAFrame extends javax.swing.JFrame {
         }
         else if(colorStrat.getSelectedIndex() == 5){
             c.setColorStrategy(new StructColor(co));
+        }
+        else if(colorStrat.getSelectedIndex() == 6){
+            c.setColorStrategy(new NuclearColor());
         }
     }//GEN-LAST:event_colorStratActionPerformed
 
