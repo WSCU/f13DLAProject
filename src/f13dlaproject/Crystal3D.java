@@ -157,6 +157,11 @@ public class Crystal3D implements Crystal{
         public double getDist() {
             return dist;
         }
+
+        @Override
+        public CParticle getParent() {
+            return this.parent;
+        }
     }
     
 }

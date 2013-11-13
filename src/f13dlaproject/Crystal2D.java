@@ -86,6 +86,11 @@ public class Crystal2D implements Crystal{
         public double getDist() {
             return dist;
         }
+
+        @Override
+        public CParticle getParent() {
+            return this.parent;
+        }
     }
 
     private Crystal2D() { //constructor

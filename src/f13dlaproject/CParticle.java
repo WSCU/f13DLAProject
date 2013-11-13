@@ -23,6 +23,8 @@ public interface CParticle {
     
     public Point getPos();
     
+    public CParticle getParent();
+    
     public int getNum();
     
     public double getDist();
