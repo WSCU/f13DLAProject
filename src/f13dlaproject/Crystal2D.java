@@ -94,7 +94,7 @@ public class Crystal2D implements Crystal{
         this.radius = 0;
         this.zoom = 20;
         Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
-        this.color = new RingColor(c);
+        this.color = new StandardColor(c);
         parts.add(new CParticle2(point2(0, 0), count, color.chooseColor(0, 0, point2(0,0), null), null));
     }
 

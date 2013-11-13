@@ -399,7 +399,7 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
-        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Ring" }));
+        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Ring", "ProgPie", "Pie" }));
         colorStrat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorStratActionPerformed(evt);
@@ -492,7 +492,7 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sizeLabel)
                 .addGap(114, 114, 114))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
 
         pack();
@@ -583,12 +583,18 @@ public class DLAFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cDimActionPerformed
 
     private void colorStratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorStratActionPerformed
-        Color[] co =  {Color.RED, Color.CYAN, Color.MAGENTA};       
+        Color[] co =  {Color.RED, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.BLUE, Color.gray};       
         if(colorStrat.getSelectedIndex() == 0){
             c.setColorStrategy(new StandardColor(co));
         }
         else if(colorStrat.getSelectedIndex() == 1){
             c.setColorStrategy(new RingColor(co));
+        }
+        else if(colorStrat.getSelectedIndex() == 2){
+            c.setColorStrategy(new ProgPieColor(co));
+        }
+        else if(colorStrat.getSelectedIndex() == 3){
+            c.setColorStrategy(new PieColor(co));
         }
     }//GEN-LAST:event_colorStratActionPerformed
 

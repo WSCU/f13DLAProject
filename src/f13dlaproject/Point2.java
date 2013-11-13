@@ -90,5 +90,14 @@ public class Point2 implements Point{
     public double length() {
         return Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
     }
+
+    @Override
+    public double getAngle() {
+        double angle = Math.acos(x/this.length());
+        if(y < 0){
+            angle += 2 * (Math.PI - angle);
+        }
+        return angle;
+    }
     
 }

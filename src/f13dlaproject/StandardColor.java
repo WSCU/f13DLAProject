@@ -19,34 +19,25 @@ public class StandardColor implements ColoringStrategy {
 
     @Override
     public Color chooseColor(double dist, int num, Point p, CParticle parent) {
-        int changeDist = 10;
+        int changeDist = 20;
         int m = (int)dist/changeDist % 3;
         float difR,difG,difB;
         float[] color = new float[3];
         float[] tocolor = new float[3];
         
-        if (m == 0) {
+        if (m == c.length-1) {
             
-            c[0].getColorComponents(color);
-            c[1].getColorComponents(tocolor);
-                       
-            difR = color[0] - tocolor[0];
-            difG = color[1] - tocolor[1];
-            difB = color[2] - tocolor[2];
-            
-              
-        } else if (m == 1) {
-            
-            c[1].getColorComponents(color);
-            c[2].getColorComponents(tocolor);
+            c[m].getColorComponents(color);
+            c[0].getColorComponents(tocolor);
                        
             difR = color[0] - tocolor[0];
             difG = color[1] - tocolor[1];
             difB = color[2] - tocolor[2];
                       
         } else {
-            c[2].getColorComponents(color);
-            c[0].getColorComponents(tocolor);
+            
+            c[m].getColorComponents(color);
+            c[m+1].getColorComponents(tocolor);
                        
             difR = color[0] - tocolor[0];
             difG = color[1] - tocolor[1];

@@ -16,6 +16,8 @@ public interface Point {
     
     public double getZ();
     
+    public double getAngle();
+    
     public void setX(double x);
     
     public void setY(double y);

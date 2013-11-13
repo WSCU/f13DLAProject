@@ -21,17 +21,8 @@ public class RingColor implements ColoringStrategy{
     @Override
     public Color chooseColor(double dist, int num, Point p, CParticle parent) {
         int changeDist = 10;
-        int m = (int)dist/changeDist % 3;
-        if(m == 0) {
-            return c[0];
-        }
-        if(m == 1) {
-            return c[1];           
-        }
-        if(m == 2) {
-            return c[2];
-        }
-        else return c[0];
+        int m = (int)dist/changeDist % c.length;
+        return c[m];
     }
 
     
