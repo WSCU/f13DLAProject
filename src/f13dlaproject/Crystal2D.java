@@ -38,11 +38,11 @@ public class Crystal2D implements Crystal{
         private double dist; //distance from center of cystal
         private Color c;
         
-        public CParticle(Point p, int num) { //constructor
+        public CParticle(Point p, int num, Color c) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
-            c = color.chooseColor(num/100);
+            this.c = c;
         }
 
         public void draw(Graphics g) { //draw
@@ -59,6 +59,10 @@ public class Crystal2D implements Crystal{
             }
             return false;
         }
+        
+        public void setColor(Color c){
+            this.c = c;
+        }
     }
 
     private Crystal2D() { //constructor
@@ -66,8 +70,8 @@ public class Crystal2D implements Crystal{
         this.radius = 0;
         this.zoom = 20;
         Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
-        this.color = new StandardColor(c);
-        parts.add(new CParticle(point2(0, 0), count));
+        this.color = new RingColor(c);
+        parts.add(new CParticle(point2(0, 0), count, color.chooseColor(0)));
     }
 
     @Override
@@ -83,9 +87,10 @@ public class Crystal2D implements Crystal{
     @Override
     public void add(Particle p) {//adds node to crystal
         count++;
-        CParticle part = new CParticle(p.getPosition(), count);
+        Point po = p.getPosition();
+        double dist = Math.sqrt(Math.pow(po.getX(), 2) + Math.pow(po.getY(), 2));
+        CParticle part = new CParticle(po, count, color.chooseColor(dist));
         parts.add(part);
-        double dist = Math.sqrt(Math.pow(part.p.getX(), 2) + Math.pow(part.p.getY(), 2));
         if (dist > radius) {
             radius = dist;
            if(DLAFrame.autoZ){
@@ -110,13 +115,16 @@ public class Crystal2D implements Crystal{
     @Override
     public void setColorStrategy(ColoringStrategy color){
         this.color = color;
+        for(CParticle p: parts){
+            p.setColor(color.chooseColor(p.dist));
+        }
     }
 
     @Override
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
         count = 0;
-        parts.add(new CParticle(point2(0, 0), count));
+        parts.add(new CParticle(point2(0, 0), count, color.chooseColor(0)));
         count = 0;
         zoom = 90;
         radius = 0;

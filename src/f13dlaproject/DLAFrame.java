@@ -14,6 +14,7 @@ import static f13dlaproject.Particle2D.*;
 import static f13dlaproject.Crystal2D.*;
 import static f13dlaproject.Particle3D.*;
 import static f13dlaproject.Crystal3D.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -283,6 +284,7 @@ public class DLAFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         zoomFactor = new javax.swing.JSlider();
         cDim = new javax.swing.JComboBox();
+        colorStrat = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -397,6 +399,13 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
+        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Ring" }));
+        colorStrat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorStratActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -439,8 +448,10 @@ public class DLAFrame extends javax.swing.JFrame {
                             .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cDim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cDim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colorStrat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,7 +459,9 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(clearButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(startButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton)
+                    .addComponent(colorStrat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -569,6 +582,16 @@ public class DLAFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cDimActionPerformed
 
+    private void colorStratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorStratActionPerformed
+        Color[] co =  {Color.RED, Color.CYAN, Color.MAGENTA};       
+        if(colorStrat.getSelectedIndex() == 0){
+            c.setColorStrategy(new StandardColor(co));
+        }
+        else if(colorStrat.getSelectedIndex() == 1){
+            c.setColorStrategy(new RingColor(co));
+        }
+    }//GEN-LAST:event_colorStratActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -608,6 +631,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JLabel alabel;
     private javax.swing.JComboBox cDim;
     private javax.swing.JButton clearButton;
+    private javax.swing.JComboBox colorStrat;
     private javax.swing.JCheckBox displayCheck;
     private javax.swing.JTextField intervalfield;
     private javax.swing.JLabel jLabel1;
