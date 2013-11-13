@@ -67,7 +67,7 @@ public class Particle3D implements Particle {
             double x = r.nextDouble() * 2 - 1.0, y = r.nextDouble() * 2 - 1.0, z = r.nextDouble() * 2 - 1.0;
             Point3 p2 = new Point3(x, y, z);//Makes vector
             Point3 newDir = new Point3(x / p2.length(), y / p2.length(), z / p2.length());//makes it a unit vector
-            if (angleDiff(dir, newDir) > angleMax) {
+            if (dir.angleDiff(newDir) > angleMax) {
                 setAngle();
             }//checks to see if the angle is within the cone
             else {

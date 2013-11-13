@@ -99,5 +99,10 @@ public class Point2 implements Point{
         }
         return angle;
     }
+
+    @Override
+    public double angleDiff(Point p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
