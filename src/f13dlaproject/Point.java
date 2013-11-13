@@ -28,4 +28,6 @@ public interface Point {
     
     public double length();
     
+    public double angleDiff(Point p);
+    
 }

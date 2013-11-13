@@ -134,6 +134,7 @@ public class Particle2D implements Particle {
         this.numLaunched = 0;
     }
 
+    @Override
     public void draw(Graphics g) { //draw
         g.setColor(Color.RED);
         Crystal2D c = crystal2D();

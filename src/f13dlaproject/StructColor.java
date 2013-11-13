@@ -5,6 +5,7 @@
 package f13dlaproject;
 
 import java.awt.Color;
+import java.util.Random;
 
 /**
  *
@@ -12,7 +13,8 @@ import java.awt.Color;
  */
 public class StructColor implements ColoringStrategy{
     
-    Color[] colors;
+    private Color[] colors;
+    private Random r = new Random();
     
     public StructColor(Color[] c){
         this.colors = c;
@@ -20,8 +22,19 @@ public class StructColor implements ColoringStrategy{
     
     @Override
     public void chooseColor(CParticle c) {
-        if(c.getParent() != null){
-            
+        CParticle parent = c.getParent();
+        if(parent != null){
+            if(parent.getParent() != null){
+                Point p = c.getPos();
+                Point pp = parent.getPos();
+                if(Math.acos(p.angleDiff(pp)) < Math.PI/4){
+                    c.setColor(parent.getColor());
+                }
+             else{
+                c.setColor(colors[r.nextInt(colors.length)]);
+            }
+                
+            }
         }
         else{
             c.setColor(Color.BLACK);

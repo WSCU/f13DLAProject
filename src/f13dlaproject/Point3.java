@@ -53,12 +53,6 @@ public class Point3 implements Point {
         return new Point3(p.getX(),p.getY(),p.getZ());
     }
     
-    public static double angleDiff(Point3 v1, Point3 v2){
-        double dot = (v1.getX()*v2.getX()+v1.getY()*v2.getY()+v1.getZ()*v2.getZ());
-        double val = dot/(v1.length()*v2.length());
-        return val;
-    }
-    
     public static Point3 point3(double x, double y, double z){
         return new Point3(x,y,z);
     }
@@ -71,6 +65,13 @@ public class Point3 implements Point {
     @Override
     public double getAngle() {
         return Math.cos(x);
+    }
+
+    @Override
+    public double angleDiff(Point p) {
+        double dot = (this.getX()*p.getX()+this.getY()*p.getY()+this.getZ()*p.getZ());
+        double val = dot/(this.length()*p.length());
+        return val;
     }
    
 }

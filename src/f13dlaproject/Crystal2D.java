@@ -43,6 +43,7 @@ public class Crystal2D implements Crystal{
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
+            this.parent = parent;
         }
 
         @Override
