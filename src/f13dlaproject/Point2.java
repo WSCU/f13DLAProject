@@ -102,7 +102,9 @@ public class Point2 implements Point{
 
     @Override
     public double angleDiff(Point p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double dot = (this.getX()*p.getX()+this.getY()*p.getY());
+        double val = dot/(this.length()*p.length());
+        return val;
     }
     
 }

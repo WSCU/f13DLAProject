@@ -6,6 +6,7 @@ package f13dlaproject;
 
 import java.awt.Color;
 import java.util.Random;
+import static f13dlaproject.Point3.*;
 
 /**
  *
@@ -27,7 +28,8 @@ public class StructColor implements ColoringStrategy{
             if(parent.getParent() != null){
                 Point p = c.getPos();
                 Point pp = parent.getPos();
-                if(Math.acos(p.angleDiff(pp)) < Math.PI/4){
+                Point dp = point3(p.getX()-pp.getX(),p.getY()-pp.getY(),p.getZ()-pp.getZ());
+                if(Math.acos(pp.angleDiff(dp)) < Math.PI/3){
                     c.setColor(parent.getColor());
                 }
              else{
