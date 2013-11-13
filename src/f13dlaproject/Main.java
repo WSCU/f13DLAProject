@@ -8,6 +8,7 @@ package f13dlaproject;
 
 import static f13dlaproject.Particle2D.*;
 import static f13dlaproject.Crystal2D.*;
+import static f13dlaproject.Testing.*;
 /**
  *
  * @author jiig
@@ -19,29 +20,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Hello world");
-        System.out.println(Math.acos(-1));
-        Particle2D p = particle2D();
-        Crystal2D c = crystal2D();
-        System.out.println(p);
-        p.setVelocity(10);
-        p.setA(Math.PI/4);
-        //p.setAngle();
-        p.move();
-        System.out.println(p);
-        //c.add(p);
-        p.reset();
-        System.out.println(p);
-        System.out.println(c);
-        c.clear();
-        p.clear();
-        System.out.println(p);
-        System.out.println(c);
-        for(int i = 0; i < 10; i++){
-            p.setAngle();
-            p.move();
-            System.out.println(p);
-        }
+        Testing t = testing();
+        System.out.println(t.testAngle(10000));
     }
     
 }
