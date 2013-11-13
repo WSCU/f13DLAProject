@@ -12,6 +12,6 @@ import java.awt.Color;
  */
 public interface ColoringStrategy {
     
-    public Color chooseColor(int num, double dist, Point p);
+    public Color chooseColor(double dist);
     
 }

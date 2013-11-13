@@ -36,15 +36,17 @@ public class Crystal2D implements Crystal{
         private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
+        private Color c;
         
         public CParticle(Point p, int num) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
+            c = color.chooseColor(dist);
         }
 
         public void draw(Graphics g) { //draw
-            g.setColor(color.chooseColor(num, dist, p));
+            g.setColor(c);
             g.fillOval((int) (p.getX() * zoom - zoom / 2) + (DLAFrame.WIDTH / 2) - DLAFrame.dx, (int) (p.getY() * zoom - zoom / 2) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy, (int) zoom, (int) zoom);
         }
 
