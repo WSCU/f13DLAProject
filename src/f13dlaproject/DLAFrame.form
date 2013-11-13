@@ -32,7 +32,7 @@
                           <Component id="zoomCheck" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="zoomFactor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
@@ -282,11 +282,12 @@
     <Component class="javax.swing.JComboBox" name="colorStrat">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Standard"/>
-            <StringItem index="1" value="Ring"/>
-            <StringItem index="2" value="ProgPie"/>
-            <StringItem index="3" value="Pie"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Standard Distance"/>
+            <StringItem index="1" value="Standard Time"/>
+            <StringItem index="2" value="Ring"/>
+            <StringItem index="3" value="ProgPie"/>
+            <StringItem index="4" value="Pie"/>
           </StringArray>
         </Property>
       </Properties>

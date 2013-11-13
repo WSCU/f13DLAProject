@@ -399,7 +399,7 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
-        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Ring", "ProgPie", "Pie" }));
+        colorStrat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard Distance", "Standard Time", "Ring", "ProgPie", "Pie" }));
         colorStrat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorStratActionPerformed(evt);
@@ -418,7 +418,7 @@ public class DLAFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(zoomCheck)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(zoomFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21))
                     .addGroup(layout.createSequentialGroup()
@@ -588,12 +588,15 @@ public class DLAFrame extends javax.swing.JFrame {
             c.setColorStrategy(new StandardColor(co));
         }
         else if(colorStrat.getSelectedIndex() == 1){
-            c.setColorStrategy(new RingColor(co));
+            c.setColorStrategy(new StandardTimeColor(co));
         }
         else if(colorStrat.getSelectedIndex() == 2){
-            c.setColorStrategy(new ProgPieColor(co));
+            c.setColorStrategy(new RingColor(co));
         }
         else if(colorStrat.getSelectedIndex() == 3){
+            c.setColorStrategy(new ProgPieColor(co));
+        }
+        else if(colorStrat.getSelectedIndex() == 4){
             c.setColorStrategy(new PieColor(co));
         }
     }//GEN-LAST:event_colorStratActionPerformed
