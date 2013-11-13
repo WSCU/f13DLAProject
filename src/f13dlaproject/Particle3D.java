@@ -107,6 +107,7 @@ public class Particle3D implements Particle {
         return p;
     }
 
+  
     public Point getAngle() {
         return dir;
     }

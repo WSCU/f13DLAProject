@@ -22,7 +22,7 @@ public class Particle2D implements Particle {
      */
     private static Particle2D uniqueInstance;
     /**
-     * holds instance of a particle2D.
+     * holds particles position.
      */
     private Point2 p;
     /**
@@ -82,7 +82,11 @@ public class Particle2D implements Particle {
             this.dir.setY(Math.sin(oang + angle)); // calculates new y dir
         }
     }
-
+    
+    public Point getDirection() {
+        return dir;
+    }
+    
     public void setPosition() {
         double rad = crystal2D().getRadius() + 5;
         double angle = r.nextDouble() * 2 * Math.PI;

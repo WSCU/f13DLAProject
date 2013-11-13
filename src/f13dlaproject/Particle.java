@@ -23,7 +23,7 @@ public interface Particle {
     public int getLaunched();
     
     public double getVelocity();
-    
+      
     public Point getPosition();
      
     public void move();
