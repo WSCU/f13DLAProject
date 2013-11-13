@@ -12,23 +12,24 @@ import java.awt.Color;
  */
 public class StandardColor implements ColoringStrategy {
 
-    private Color[] c;
+    private Color[] colors;
     public StandardColor(Color[] c) {
-        this.c = c;
+        this.colors = c;
     }
 
     @Override
-    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
+    public void chooseColor(CParticle c) {
+        double dist = c.getDist();
         int changeDist = 20;
         int m = (int)dist/changeDist % 3;
         float difR,difG,difB;
         float[] color = new float[3];
         float[] tocolor = new float[3];
         
-        if (m == c.length-1) {
+        if (m == colors.length-1) {
             
-            c[m].getColorComponents(color);
-            c[0].getColorComponents(tocolor);
+            colors[m].getColorComponents(color);
+            colors[0].getColorComponents(tocolor);
                        
             difR = color[0] - tocolor[0];
             difG = color[1] - tocolor[1];
@@ -36,8 +37,8 @@ public class StandardColor implements ColoringStrategy {
                       
         } else {
             
-            c[m].getColorComponents(color);
-            c[m+1].getColorComponents(tocolor);
+            colors[m].getColorComponents(color);
+            colors[m+1].getColorComponents(tocolor);
                        
             difR = color[0] - tocolor[0];
             difG = color[1] - tocolor[1];
@@ -56,6 +57,6 @@ public class StandardColor implements ColoringStrategy {
             float b = color[2] - dB; 
             
             
-        return new Color(r, g, b);
+        c.setColor(new Color(r, g, b));
     }
 }

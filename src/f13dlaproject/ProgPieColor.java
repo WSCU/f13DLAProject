@@ -21,7 +21,8 @@ public class ProgPieColor implements ColoringStrategy {
     }
 
     @Override
-    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
+    public void chooseColor(CParticle c) {
+        Point p = c.getPos();
         int m = (int) (p.getAngle() / cangle) % colors.length;
         float difR, difG, difB;
         float[] color = new float[3];
@@ -57,6 +58,6 @@ public class ProgPieColor implements ColoringStrategy {
         float b = color[2] - dB;
 
 
-        return new Color(r, g, b);
+        c.setColor(new Color(r, g, b));
     }
 }

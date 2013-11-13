@@ -22,9 +22,10 @@ public class PieColor implements ColoringStrategy {
     }
 
     @Override
-    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
+    public void chooseColor(CParticle c) {
+        Point p = c.getPos();
         int m = (int) (p.getAngle() / cangle) % colors.length;
-        return colors[m];
+        c.setColor(colors[m]);
     }
 }
 

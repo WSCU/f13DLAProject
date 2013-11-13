@@ -12,17 +12,18 @@ import java.awt.Color;
  */
 public class RingColor implements ColoringStrategy{
     
-    private Color[] c;
+    private Color[] colors;
     
     public RingColor(Color[] c) {
-        this.c = c;
+        this.colors = c;
     }
 
     @Override
-    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
+    public void chooseColor(CParticle c) {
+        double dist = c.getDist();
         int changeDist = 10;
-        int m = (int)dist/changeDist % c.length;
-        return c[m];
+        int m = (int)dist/changeDist % colors.length;
+        c.setColor(colors[m]);
     }
 
     

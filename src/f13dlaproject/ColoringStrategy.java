@@ -13,6 +13,6 @@ import f13dlaproject.Crystal2D.*;
  */
 public interface ColoringStrategy {
     
-    public Color chooseColor(double dist, int num, Point p, CParticle parent);
+    public void chooseColor(CParticle c);
     
 }

@@ -39,11 +39,10 @@ public class Crystal2D implements Crystal{
         private Color c;
         private CParticle parent;
         
-        public CParticle2(Point p, int num, Color c, CParticle parent) { //constructor
+        public CParticle2(Point p, int num, CParticle parent) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
-            this.c = c;
         }
 
         @Override
@@ -95,7 +94,9 @@ public class Crystal2D implements Crystal{
         this.zoom = 20;
         Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
         this.color = new StandardColor(c);
-        parts.add(new CParticle2(point2(0, 0), count, color.chooseColor(0, 0, point2(0,0), null), null));
+        CParticle2 cp = new CParticle2(point2(0, 0), count, null);
+        color.chooseColor(cp);
+        parts.add(cp);
     }
 
     @Override
@@ -113,7 +114,8 @@ public class Crystal2D implements Crystal{
         count++;
         Point po = p.getPosition();
         double dist = po.length();
-        CParticle2 part = new CParticle2(po, count, color.chooseColor(dist, count, po, parent), parent);
+        CParticle2 part = new CParticle2(po, count, parent);
+        color.chooseColor(part);
         parts.add(part);
         if (dist > radius) {
             radius = dist;
@@ -140,7 +142,7 @@ public class Crystal2D implements Crystal{
     public void setColorStrategy(ColoringStrategy color){
         this.color = color;
         for(CParticle2 p: parts){
-            p.setColor(color.chooseColor(p.dist,p.num,p.p,p.parent));
+            color.chooseColor(p);
         }
     }
 
@@ -148,7 +150,9 @@ public class Crystal2D implements Crystal{
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
         count = 0;
-        parts.add(new CParticle2(point2(0, 0), count, color.chooseColor(0,0,point2(0,0),null), null));
+        CParticle2 cp = new CParticle2(point2(0, 0), count, null);
+        color.chooseColor(cp);
+        parts.add(cp);
         count = 0;
         zoom = 90;
         radius = 0;
