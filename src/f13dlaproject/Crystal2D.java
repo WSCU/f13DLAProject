@@ -42,7 +42,7 @@ public class Crystal2D implements Crystal{
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
-            c = color.chooseColor(dist);
+            c = color.chooseColor(num/100);
         }
 
         public void draw(Graphics g) { //draw
@@ -65,7 +65,7 @@ public class Crystal2D implements Crystal{
         this.count = 1;
         this.radius = 0;
         this.zoom = 20;
-        Color[] c = {Color.BLACK, Color.GREEN, Color.RED};
+        Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
         this.color = new StandardColor(c);
         parts.add(new CParticle(point2(0, 0), count));
     }

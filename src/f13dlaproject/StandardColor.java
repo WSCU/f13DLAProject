@@ -13,58 +13,58 @@ import java.awt.Color;
 public class StandardColor implements ColoringStrategy {
 
     private Color[] c;
-    private int r,g,b;
     public StandardColor(Color[] c) {
         this.c = c;
     }
 
     @Override
     public Color chooseColor(double dist) {
-        int changeDist =10;
+        int changeDist = 10;
         int m = (int)dist/changeDist % 3;
-        double difR,difG,difB;
+        float difR,difG,difB;
+        float[] color = new float[3];
+        float[] tocolor = new float[3];
         
         if (m == 0) {
             
-            r = c[0].getRed();
-            g = c[0].getGreen();
-            b = c[0].getBlue();
-            
-            difR = c[0].getRed() - c[1].getRed();
-            difG = c[0].getGreen() - c[1].getGreen();
-            difB = c[0].getBlue() - c[1].getBlue();
+            c[0].getColorComponents(color);
+            c[1].getColorComponents(tocolor);
+                       
+            difR = color[0] - tocolor[0];
+            difG = color[1] - tocolor[1];
+            difB = color[2] - tocolor[2];
             
               
         } else if (m == 1) {
             
-            r = c[1].getRed();
-            g = c[1].getGreen();
-            b = c[1].getBlue();
-            
-            difR = c[1].getRed() - c[2].getRed();
-            difG = c[1].getGreen() - c[2].getGreen();
-            difB = c[1].getBlue() - c[2].getBlue();
+            c[1].getColorComponents(color);
+            c[2].getColorComponents(tocolor);
+                       
+            difR = color[0] - tocolor[0];
+            difG = color[1] - tocolor[1];
+            difB = color[2] - tocolor[2];
                       
         } else {
-            r = c[2].getRed();
-            g = c[2].getGreen();
-            b = c[2].getBlue();
-            
-            difR = c[2].getRed() - c[0].getRed();
-            difG = c[2].getGreen() - c[0].getGreen();
-            difB = c[2].getBlue() - c[0].getBlue();
+            c[2].getColorComponents(color);
+            c[0].getColorComponents(tocolor);
+                       
+            difR = color[0] - tocolor[0];
+            difG = color[1] - tocolor[1];
+            difB = color[2] - tocolor[2];
                        
         }    
         
-            double per = ((int)dist%changeDist)/changeDist;
+            float per = (1.0f*((int)dist%changeDist))/changeDist;
             
-            double dR = difR*per;
-            double dG = difG*per;
-            double dB = difB*per;
+            float dR = difR*per;
+            float dG = difG*per;
+            float dB = difB*per;
             
-            r += dR;
-            g += dG;
-            b += dB; 
+            float r = color[0] - dR;
+            float g = color[1] - dG;
+            float b = color[2] - dB; 
+            
+            
         return new Color(r, g, b);
     }
 }
