@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import static f13dlaproject.Point3.*;
 import static f13dlaproject.Particle3D.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -20,7 +22,7 @@ public class Crystal3D implements Crystal{
     private double radius;
     private double zoom;
     private ColoringStrategy color;
-    private ArrayList<CParticle> parts = new ArrayList();
+    private List<CParticle> parts = new CopyOnWriteArrayList();
     
     
     

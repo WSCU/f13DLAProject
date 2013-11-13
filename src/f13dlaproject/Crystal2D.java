@@ -9,6 +9,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import static f13dlaproject.Point2.*;
 import static f13dlaproject.Particle2D.*;
+import java.util.List;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -21,7 +24,8 @@ public class Crystal2D implements Crystal{
     private double radius;
     private double zoom;
     private ColoringStrategy color;
-    private ArrayList<CParticle> parts = new ArrayList();
+    //private ArrayList<CParticle> parts = new ArrayList();
+    private List<CParticle> parts = new CopyOnWriteArrayList();
 
     /*
      * Declaration of inner CParticle class
@@ -129,7 +133,12 @@ public class Crystal2D implements Crystal{
 
     @Override
     public void draw(Graphics g) {//iterates the nodes and draws each one
-        for (CParticle p : parts) {
+        Iterator<CParticle> iterator = parts.iterator();
+//        for (CParticle p : parts) {
+//            p.draw(g);
+//        }
+        while (iterator.hasNext()) {
+            CParticle p = iterator.next();
             p.draw(g);
         }
     }
