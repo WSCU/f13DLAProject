@@ -78,12 +78,12 @@ public class Point2 implements Point{
 
     @Override
     public double getZ() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
 
     @Override
     public void setZ(double z) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2D point: no z componant");
     }
 
     @Override
