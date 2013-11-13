@@ -22,7 +22,7 @@ public class Crystal3D implements Crystal{
     private double radius;
     private double zoom;
     private ColoringStrategy color;
-    private List<CParticle> parts = new CopyOnWriteArrayList();
+    private List<CParticle3> parts = new CopyOnWriteArrayList();
     private CParticle recent;
     
     
@@ -33,6 +33,7 @@ public class Crystal3D implements Crystal{
         this.zoom = 0;
         Color [] c = {Color.RED,Color.BLUE,Color.BLACK};
         this.color= new StandardColor(c);
+        parts.add(new CParticle3(point3(0,0,0),1,null));
     
     }
     @Override
@@ -63,7 +64,7 @@ public class Crystal3D implements Crystal{
 
     @Override
     public boolean collides() {
-       for(CParticle partic: parts){
+       for(CParticle3 partic: parts){
            CParticle recent = partic.collides();
            if(recent != null){
                this.add(particle3D(), recent);
@@ -111,8 +112,8 @@ public class Crystal3D implements Crystal{
         private Color c;
         CParticle parent;
 
-        public CParticle3(Point point, int i, CParticle  Parent) {
-            this.p = point.clone(p);
+        public CParticle3(Point p, int i, CParticle  parent) {
+            this.p = p.clone(p);
             this.num = i;
             this.parent = parent;
         }

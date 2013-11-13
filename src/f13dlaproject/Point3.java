@@ -50,7 +50,7 @@ public class Point3 implements Point {
 
     @Override
     public Point clone(Point p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Point3(p.getX(),p.getY(),p.getZ());
     }
     
     public static double angleDiff(Point3 v1, Point3 v2){

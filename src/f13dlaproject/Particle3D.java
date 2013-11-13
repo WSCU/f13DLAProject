@@ -80,16 +80,16 @@ public class Particle3D implements Particle {
     public void setPosition() {
         double theta = r.nextDouble() * 2 * Math.PI;
         double phi = r.nextDouble() * 2 * Math.PI;
-        double r = crystal3D().getRadius() + 5;
-        double x = r * Math.sin(theta) * Math.cos(phi);
-        double y = r * Math.sin(theta) * Math.sin(phi);
-        double z = r * Math.cos(theta);
+        double rad = crystal3D().getRadius() + 5;
+        double x = rad * Math.sin(theta) * Math.cos(phi);
+        double y = rad * Math.sin(theta) * Math.sin(phi);
+        double z = rad * Math.cos(theta);
         this.p.setX(x);
         this.p.setY(y);
         this.p.setZ(z);
-        dir.setX(-Math.sin(theta)*Math.cos(phi));
-        dir.setY(-Math.sin(theta)*Math.sin(phi));
-        dir.setZ(-Math.cos(theta));
+        dir.setX(-(Math.sin(theta)*Math.cos(phi)));
+        dir.setY(-(Math.sin(theta)*Math.sin(phi)));
+        dir.setZ(-(Math.cos(theta)));
     }
 
     @Override
@@ -119,7 +119,7 @@ public class Particle3D implements Particle {
         double dist = p.length();
         if (crystal3D().collides() || dist > bounds) {
             reset();
-            bounds = crystal3D().getRadius() + 5;
+            bounds = crystal3D().getRadius() + 6;
         }
     }
 
@@ -150,9 +150,9 @@ public class Particle3D implements Particle {
         this.bounds = rad + 5;
         this.vel = 0;
         this.dir = point3(0, 0, 0);
-        dir.setX(-Math.sin(theta)*Math.cos(phi));
-        dir.setY(-Math.sin(theta)*Math.sin(phi));
-        dir.setZ(-Math.cos(theta));
+        dir.setX(-(Math.sin(theta)*Math.cos(phi)));
+        dir.setY(-(Math.sin(theta)*Math.sin(phi)));
+        dir.setZ(-(Math.cos(theta)));
         this.a = 0;
         this.numLaunched = 1;
     }
