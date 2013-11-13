@@ -25,43 +25,67 @@ public class Crystal2D implements Crystal{
     private double zoom;
     private ColoringStrategy color;
     //private ArrayList<CParticle> parts = new ArrayList();
-    private List<CParticle> parts = new CopyOnWriteArrayList();
+    private List<CParticle2> parts = new CopyOnWriteArrayList();
 
     /*
      * Declaration of inner CParticle class
      * Be each node in crystal
      */
-    private class CParticle {
+    private class CParticle2 implements CParticle {
 
         private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
         private Color c;
+        private CParticle parent;
         
-        public CParticle(Point p, int num, Color c) { //constructor
+        public CParticle2(Point p, int num, Color c, CParticle parent) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
             this.c = c;
         }
 
+        @Override
         public void draw(Graphics g) { //draw
             g.setColor(c);
             g.fillOval((int) (p.getX() * zoom - zoom / 2) + (DLAFrame.WIDTH / 2) - DLAFrame.dx, (int) (p.getY() * zoom - zoom / 2) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy, (int) zoom, (int) zoom);
         }
 
-        public boolean collides() {
+        @Override
+        public CParticle collides() {
             Particle2D t = particle2D();
             Point pos = t.getPosition();
-            double dist = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2));
+            double dist = p.length();
             if (dist < 1) {
-                return true;
+                return this;
             }
-            return false;
+            return null;
         }
         
+        @Override
         public void setColor(Color c){
             this.c = c;
+        }
+
+        @Override
+        public Color getColor() {
+            return c;
+        }
+
+        @Override
+        public Point getPos() {
+            return p;
+        }
+
+        @Override
+        public int getNum() {
+            return num;
+        }
+
+        @Override
+        public double getDist() {
+            return dist;
         }
     }
 
@@ -71,7 +95,7 @@ public class Crystal2D implements Crystal{
         this.zoom = 20;
         Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
         this.color = new RingColor(c);
-        parts.add(new CParticle(point2(0, 0), count, color.chooseColor(0)));
+        parts.add(new CParticle2(point2(0, 0), count, color.chooseColor(0, 0, point2(0,0), null), null));
     }
 
     @Override
@@ -85,11 +109,11 @@ public class Crystal2D implements Crystal{
     }
 
     @Override
-    public void add(Particle p) {//adds node to crystal
+    public void add(Particle p, CParticle parent) {//adds node to crystal
         count++;
         Point po = p.getPosition();
-        double dist = Math.sqrt(Math.pow(po.getX(), 2) + Math.pow(po.getY(), 2));
-        CParticle part = new CParticle(po, count, color.chooseColor(dist));
+        double dist = po.length();
+        CParticle2 part = new CParticle2(po, count, color.chooseColor(dist, count, po, parent), parent);
         parts.add(part);
         if (dist > radius) {
             radius = dist;
@@ -115,8 +139,8 @@ public class Crystal2D implements Crystal{
     @Override
     public void setColorStrategy(ColoringStrategy color){
         this.color = color;
-        for(CParticle p: parts){
-            p.setColor(color.chooseColor(p.dist));
+        for(CParticle2 p: parts){
+            p.setColor(color.chooseColor(p.dist,p.num,p.p,p.parent));
         }
     }
 
@@ -124,7 +148,7 @@ public class Crystal2D implements Crystal{
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
         count = 0;
-        parts.add(new CParticle(point2(0, 0), count, color.chooseColor(0)));
+        parts.add(new CParticle2(point2(0, 0), count, color.chooseColor(0,0,point2(0,0),null), null));
         count = 0;
         zoom = 90;
         radius = 0;
@@ -132,9 +156,10 @@ public class Crystal2D implements Crystal{
 
     @Override
     public boolean collides() {
-        for (CParticle p : parts) {
-            if (p.collides()) {
-                this.add(particle2D());
+        for (CParticle2 p : parts) {
+            CParticle recent = p.collides();
+            if (recent!=null) {
+                this.add(particle2D(), recent);
                 return true;
             }
         }
@@ -143,7 +168,7 @@ public class Crystal2D implements Crystal{
 
     @Override
     public void draw(Graphics g) {//iterates the nodes and draws each one
-        Iterator<CParticle> iterator = parts.iterator();
+        Iterator<CParticle2> iterator = parts.iterator();
 //        for (CParticle p : parts) {
 //            p.draw(g);
 //        }

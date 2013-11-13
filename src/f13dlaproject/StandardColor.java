@@ -18,7 +18,7 @@ public class StandardColor implements ColoringStrategy {
     }
 
     @Override
-    public Color chooseColor(double dist) {
+    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
         int changeDist = 10;
         int m = (int)dist/changeDist % 3;
         float difR,difG,difB;

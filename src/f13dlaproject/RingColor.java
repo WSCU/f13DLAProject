@@ -19,7 +19,7 @@ public class RingColor implements ColoringStrategy{
     }
 
     @Override
-    public Color chooseColor(double dist) {
+    public Color chooseColor(double dist, int num, Point p, CParticle parent) {
         int changeDist = 10;
         int m = (int)dist/changeDist % 3;
         if(m == 0) {
@@ -33,5 +33,6 @@ public class RingColor implements ColoringStrategy{
         }
         else return c[0];
     }
+
     
 }

@@ -23,6 +23,7 @@ public class Crystal3D implements Crystal{
     private double zoom;
     private ColoringStrategy color;
     private List<CParticle> parts = new CopyOnWriteArrayList();
+    private CParticle recent;
     
     
     
@@ -45,9 +46,9 @@ public class Crystal3D implements Crystal{
     }
 
     @Override
-    public void add(Particle p) {
+    public void add(Particle p, f13dlaproject.CParticle parent) {
         count++;
-        CParticle part = new CParticle(p.getPosition(), count);
+        CParticle3 part = new CParticle3(p.getPosition(), count, parent);
         parts.add(part);
         double dist = part.p.length();
         if (dist > radius) {
@@ -63,7 +64,11 @@ public class Crystal3D implements Crystal{
     @Override
     public boolean collides() {
        for(CParticle partic: parts){
-           if(partic.collides()){return true;}
+           CParticle recent = partic.collides();
+           if(recent != null){
+               this.add(particle3D(), recent);
+               return true;
+           }
        }
        return false;
     }
@@ -99,27 +104,57 @@ public class Crystal3D implements Crystal{
         this.color= new StandardColor(c);
     }
 
-    private static class CParticle {
+    private static class CParticle3 implements CParticle {
         private Point p; //position of node
         private int num; //number in which it was added to crystal
         private double dist; //distance from center of cystal
+        private Color c;
+        CParticle parent;
 
-        public CParticle(Point point, int i) {
+        public CParticle3(Point point, int i, CParticle  Parent) {
             this.p = point.clone(p);
             this.num = i;
+            this.parent = parent;
         }
         
-        public boolean collides(){
+        @Override
+        public CParticle collides(){
              Particle3D t = particle3D();
             Point pos = t.getPosition();
             double l = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2)+ Math.pow(p.getZ() - pos.getZ(), 2));
             if (l < 1) {
-                return true;
+                return this;
             }
-            return false;
+            return null;
         }
+        @Override
         public void draw(Graphics g){
               
+        }
+
+        @Override
+        public void setColor(Color c) {
+            this.c = c;
+        }
+
+        @Override
+        public Color getColor() {
+            return c;
+        }
+
+        @Override
+        public Point getPos() {
+            return p;
+        }
+
+        @Override
+        public int getNum() {
+            return num;
+        }
+
+        @Override
+        public double getDist() {
+            return dist;
         }
     }
     

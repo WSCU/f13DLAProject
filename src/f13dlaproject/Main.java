@@ -29,7 +29,7 @@ public class Main {
         //p.setAngle();
         p.move();
         System.out.println(p);
-        c.add(p);
+        //c.add(p);
         p.reset();
         System.out.println(p);
         System.out.println(c);

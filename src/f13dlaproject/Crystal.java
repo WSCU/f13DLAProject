@@ -16,7 +16,7 @@ public interface Crystal {
     
     public double getZoom();
     
-    public void add(Particle p);
+    public void add(Particle p, CParticle parent);
     
     public int getSize();
     
