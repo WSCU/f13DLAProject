@@ -56,8 +56,8 @@ public class Crystal2D implements Crystal{
         public CParticle collides() {
             Particle2D t = particle2D();
             Point pos = t.getPosition();
-            double dist = p.length();
-            if (dist < 1) {
+            double distance = Math.sqrt(Math.pow(p.getX()-pos.getX(),2)+Math.pow(p.getY()-pos.getY(),2));
+            if (distance < 1) {
                 return this;
             }
             return null;

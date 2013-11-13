@@ -88,7 +88,7 @@ public class Point2 implements Point{
 
     @Override
     public double length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
     }
     
 }
