@@ -54,8 +54,9 @@ public class Point3 implements Point {
     }
     
     public static double angleDiff(Point3 v1, Point3 v2){
-        double h = (v1.getX()*v2.getX()+v1.getY()*v2.getY()+v1.getZ()*v2.getZ());
-        return Math.acos(h/(v1.length()*v2.length()));
+        double dot = (v1.getX()*v2.getX()+v1.getY()*v2.getY()+v1.getZ()*v2.getZ());
+        double val = dot/(v1.length()*v2.length());
+        return val;
     }
     
     public static Point3 point3(double x, double y, double z){

@@ -254,8 +254,8 @@ public class DLAFrame extends javax.swing.JFrame {
      * Updates the particles launched and crystal size labels.
      */
     public void updateLabels() {
-        launchedLabel.setText("Particles Launched: " + Particle2D.particle2D().getLaunched());
-        sizeLabel.setText("Crystal Size: " + Crystal2D.crystal2D().getSize());
+        launchedLabel.setText("Particles Launched: " + p.getLaunched());
+        sizeLabel.setText("Crystal Size: " + c.getSize());
     }
 
     /**
