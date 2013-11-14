@@ -66,14 +66,17 @@ public class Particle2D implements Particle {
     }
 
     //setters
+    @Override
     public void setVelocity(double v) {
         this.vel = v;
     }
 
+    @Override
     public void setA(double a) {
         this.a = a;
     }
 
+    @Override
     public void setAngle() {
         if (a != 0) {
             double angle = 2 * (r.nextDouble() - 0.5) * this.a; //finds random double between -a, a
@@ -87,6 +90,7 @@ public class Particle2D implements Particle {
         return dir;
     }
     
+    @Override
     public void setPosition() {
         double rad = crystal2D().getRadius() + 5;
         double angle = r.nextDouble() * 2 * Math.PI;
@@ -97,14 +101,17 @@ public class Particle2D implements Particle {
     }
 
     //getters
+    @Override
     public int getLaunched() {
         return numLaunched;
     }
 
+    @Override
     public double getVelocity() {
         return vel;
     }
 
+    @Override
     public Point getPosition() {
         return p;
     }
@@ -117,6 +124,7 @@ public class Particle2D implements Particle {
         return oang;
     }
 
+    @Override
     public void move() { //move and collison detection
         //this.setAngle();
         p.setX(p.getX() + dir.getX() * vel);
@@ -128,11 +136,13 @@ public class Particle2D implements Particle {
         }
     }
 
+    @Override
     public void reset() { //reset particle2D to origin
         this.setPosition();
         this.numLaunched++;
     }
 
+    @Override
     public void clear() { //clear()
         this.reset();
         this.numLaunched = 0;
