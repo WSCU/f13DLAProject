@@ -688,8 +688,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private void addArrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrayActionPerformed
         MenuElement[] ar = popUp.getSubElements();
         JRadioButtonMenuItem[] jar = new JRadioButtonMenuItem[ar.length];
-        ArrayList<Color> cAList = new ArrayList<>(); 
-        
+        ArrayList<Color> cAList = new ArrayList<>();         
         for(int i=0;i<ar.length;i++) {
             jar[i] = (JRadioButtonMenuItem)ar[i];
             if(jar[i].isSelected()) {
@@ -721,12 +720,15 @@ public class DLAFrame extends javax.swing.JFrame {
                     cAList.add(Color.WHITE);
                 }                
             }            
+        }        
+        if(cAList.size() == 0) {
+        cAList.add(Color.RED);
         }
         cArray = new Color[cAList.size()];
         for(int i=0;i<cArray.length;i++) {
             cArray[i] = cAList.get(i);
             System.out.println(cArray[i]);
-        }        
+        }                
         if(colorStrat.getSelectedIndex() == 0){
             c.setColorStrategy(new StandardColor(cArray));
         }
@@ -745,6 +747,7 @@ public class DLAFrame extends javax.swing.JFrame {
         else if(colorStrat.getSelectedIndex() == 5){
             c.setColorStrategy(new StructColor(cArray));
         }
+        
     }//GEN-LAST:event_addArrayActionPerformed
 
     /**
