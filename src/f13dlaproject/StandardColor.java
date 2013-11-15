@@ -7,16 +7,23 @@ package f13dlaproject;
 import java.awt.Color;
 
 /**
- *
+ * A coloring strategy that colors the crystal in a standard incremental way based on distance
  * @author outcast
  */
 public class StandardColor implements ColoringStrategy {
 
     private Color[] colors;
+    /**
+     *
+     * @param c The color array that will be used for the individual rings
+     */
     public StandardColor(Color[] c) {
         this.colors = c;
     }
-
+    /**
+     * Gradually cycle through each color in the array, progressively transitioning between each color
+     * Transitions are based on distance 
+     */
     @Override
     public void chooseColor(CParticle c) {
         double dist = c.getDist();

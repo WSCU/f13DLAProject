@@ -14,30 +14,69 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- *
+ * A class to represent a crystal in a 2D environment. Implements from {@link Crystal}
+ * Singleton pattern
  * @author Graham and Ryan
  */
 public class Crystal2D implements Crystal {
-
+/**
+ * A unique crystal 
+ */ 
     private static Crystal2D instance;
+     /**
+ * The number of nodes in a crystal 
+ */ 
     private int count;
+    /**
+ * The radius of the crystal 
+ */
     private double radius;
+     /**
+ * zoom factor to make the crystal fit to the window
+ */
     private double zoom;
+    /**
+ * A coloring strategy for the crystal
+ */
     private ColoringStrategy color;
     //private ArrayList<CParticle> parts = new ArrayList();
+    /**
+ * An ArrayList of CParticles that make up the crystal 
+ */
     private List<CParticle2> parts = new CopyOnWriteArrayList();
 
     /*
      * Declaration of inner CParticle class
-     * Be each node in crystal
+     * Represents each node in crystal
+     * @author Graham and Ryan
      */
     private class CParticle2 implements CParticle {
-
+/**
+ * Point position of crystal node  
+ */
         private Point p; //position of node
+        /**
+ * Number in which the node was added to the crystal  
+ */
         private int num; //number in which it was added to crystal
+         /**
+ * Distance of node from center of crystal 
+ */
         private double dist; //distance from center of cystal
+         /**
+ * Color of crystal node  
+ */
         private Color c;
+         /**
+ * Parent of the crystal node  
+ */
         private CParticle parent;
+         /**
+ * Constructs a new node in the crystal of a 2D environment 
+ * @param p Position of the node, represented by point (x, y)
+ * @param num Number in which the node was added to the crystal 
+ * @param parent Parent of the crystal node
+ */
 
         public CParticle2(Point p, int num, CParticle parent) { //constructor
             this.p = p.clone(p);
@@ -108,7 +147,10 @@ public class Crystal2D implements Crystal {
             return this.parent;
         }
     }
-
+ /**
+ * Constructor for a 2D crystal 
+ * Instantiates the count, radius, zoom, color array, coloring strategy, CParticle
+ */
     private Crystal2D() { //constructor
         this.count = 1;
         this.radius = 0;
@@ -158,7 +200,9 @@ public class Crystal2D implements Crystal {
     public void setZoom(int z) {
         this.zoom = z;
     }
-
+  /**
+ * Colors each particle in the node array to the passed in coloring strategy
+ */
     @Override
     public void setColorStrategy(ColoringStrategy color) {
         this.color = color;
@@ -166,7 +210,9 @@ public class Crystal2D implements Crystal {
             color.chooseColor(p);
         }
     }
-
+ /** 
+ * Resets the node list to empty and the count to 0
+ */
     @Override
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
@@ -190,7 +236,9 @@ public class Crystal2D implements Crystal {
         }
         return false;
     }
-
+ /**
+ * Iterates the nodes and draws each one
+ */
     @Override
     public synchronized void draw(Graphics g) {//iterates the nodes and draws each one
         Iterator<CParticle2> iterator = parts.iterator();
@@ -203,9 +251,10 @@ public class Crystal2D implements Crystal {
 //        }
     }
 
-    /*
-     * Singleton static factory
-     */
+ /**
+ * Singleton static factory that generates a unique 2D crystal 
+ * @return unique instance of a crystal 
+ */
     public static Crystal2D crystal2D() {
         if (instance == null) {
             instance = new Crystal2D();
@@ -213,6 +262,10 @@ public class Crystal2D implements Crystal {
         return instance;
     }
 
+    /**
+     * Method to display the number of nodes in the crystal
+     * @return A String detailing the number of nodes in the crystal 
+     */
     @Override
     public String toString() { // toString()
         return "Size: " + count;

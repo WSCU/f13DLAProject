@@ -21,11 +21,18 @@ import static f13dlaproject.Particle2D.particle2D;
 import static f13dlaproject.Particle3D.particle3D;
 
 /**
- *
+ * XML Seed 
  * @author stu738510
  */
 public class XMLseed {
 
+    /**
+     *
+     * @param f
+     * @throws SAXException
+     * @throws IOException
+     * @throws ParserConfigurationException
+     */
     public static void fromXML(File f) throws SAXException, IOException, ParserConfigurationException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -50,11 +57,19 @@ public class XMLseed {
 
     }
 
+    /**
+     *
+     * @param e
+     */
     public static void two(Element e) {
         Point2 p = new Point2(Double.parseDouble(e.getElementsByTagName("x").item(0).getTextContent()), Double.parseDouble(e.getElementsByTagName("y").item(0).getTextContent()));
         particle2D().setPosition(p);
     }
 
+    /**
+     *
+     * @param e
+     */
     public static void three(Element e) {
         Point3 p = new Point3(Double.parseDouble(e.getElementsByTagName("x").item(0).getTextContent()), Double.parseDouble(e.getElementsByTagName("y").item(0).getTextContent()),
                 Double.parseDouble(e.getElementsByTagName("z").item(0).getTextContent()));

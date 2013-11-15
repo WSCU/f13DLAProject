@@ -5,10 +5,13 @@
 package f13dlaproject;
 import static f13dlaproject.Particle2D.*;
 /**
- *
+ * Tests stuff. Fill this in later. 
  * @author stu452786
  */
 public class Testing {
+    /**
+     *
+     */
     public Particle2D p ;
     private static Testing uniqueInstance;
     
@@ -17,6 +20,11 @@ public class Testing {
     }
 
     
+    /**
+     *
+     * @param stop
+     * @return
+     */
     public String testAngle(int stop){
         double bounds = .5;
         p.setA(bounds);
@@ -43,7 +51,11 @@ public class Testing {
         return "Angle is working";
     }
     
-     public static Testing testing() {
+     /**
+     *
+     * @return
+     */
+    public static Testing testing() {
          if (uniqueInstance == null) {
             uniqueInstance = new Testing();
         }

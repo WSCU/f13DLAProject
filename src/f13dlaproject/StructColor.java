@@ -9,7 +9,7 @@ import java.util.Random;
 import static f13dlaproject.Point3.*;
 
 /**
- *
+ * A coloring strategy class that demonstrates the structure of the crystal
  * @author stu781945
  */
 public class StructColor implements ColoringStrategy{
@@ -17,8 +17,19 @@ public class StructColor implements ColoringStrategy{
     private Color[] colors = {Color.YELLOW,Color.CYAN,Color.pink,};
     private Random r = new Random();
     
+    /**
+     * Constructs a Structure Color strategy 
+     * @param c The Color array of colors the strategy will utilize 
+     */
     public StructColor(Color[] c){    }
-    
+         /**
+     * Grabs the parent of the passed in CParticle 
+     * If the CParticle does have a parent and the parent has a parent get the position of the current particle and its parent
+     * Create a new point based on these positions 
+     * If the new point doesn't diverge to much from its parents' direction, keep the parent's color (creates a branch)
+     * If the new point diverges more that Math.PI/3, set it to a random color inside the color array 
+     * If the particle does not have parents, set it to black. This will be the center.
+     */  
     @Override
     public void chooseColor(CParticle c) {
         CParticle parent = c.getParent();

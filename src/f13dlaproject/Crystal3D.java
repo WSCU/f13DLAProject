@@ -13,20 +13,44 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- *
+ * A class to represent a crystal in a 3D environment. Implements from {@link Crystal}
  * @author stu738510
  */
 public class Crystal3D implements Crystal{
+        /**
+ * A unique crystal 
+ */
     private static Crystal3D instance;
+         /**
+ * The number of nodes in a crystal 
+ */ 
     private int count;
+        /**
+ * The radius of the crystal 
+ */
     private double radius;
+         /**
+ * zoom factor to make the crystal fit to the window
+ */
     private double zoom;
+        /**
+ * A coloring strategy for the crystal
+ */
     private ColoringStrategy color;
+        /**
+ * An ArrayList of CParticles that make up the crystal 
+ */
     private List<CParticle3> parts = new CopyOnWriteArrayList();
+      /**
+ * Most recent CParticle 
+ */  
     private CParticle recent;
     
     
-    
+    /**
+ * Constructor for a 3D crystal 
+ * Instantiates the count, radius, zoom, color array, coloring strategy, CParticle
+ */ 
     private Crystal3D(){
         this.count=1;
         this.radius=1;
@@ -86,6 +110,10 @@ public class Crystal3D implements Crystal{
         }
     }
     
+ /**
+ * Singleton static factory that generates a unique 3D crystal 
+ * @return unique instance of a 3D crystal 
+ */
     public static Crystal3D crystal3D(){
         if(instance == null){instance = new Crystal3D(); }
         return instance;

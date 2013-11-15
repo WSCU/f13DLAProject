@@ -7,17 +7,24 @@ package f13dlaproject;
 import java.awt.Color;
 
 /**
- *
+ * A coloring strategy that colors the crystal in a standard incremental way based on time 
  * @author outcast
  */
 public class StandardTimeColor implements ColoringStrategy {
 
     private Color[] colors;
     
+    /**
+     *
+     * @param c The color array that will be used for the individual rings
+     */
     public StandardTimeColor(Color[] c) {
         this.colors = c;
     }
-
+    /**
+     * Gradually cycle through each color in the array, progressively transitioning between each color
+     * Transitions are based on time
+     */
     @Override
     public void chooseColor(CParticle c) {
         int num = c.getNum();

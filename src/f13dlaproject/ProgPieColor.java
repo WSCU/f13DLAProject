@@ -7,7 +7,7 @@ package f13dlaproject;
 import java.awt.Color;
 
 /**
- *
+ * A coloring strategy class that divides the crystal into separately colored pie clusters, with colors progressively fading into each other
  * @author outcast
  */
 public class ProgPieColor implements ColoringStrategy {
@@ -15,11 +15,18 @@ public class ProgPieColor implements ColoringStrategy {
     Color[] colors;
     double cangle;
 
+    /**
+     * Constructs a Progressive Pie Color coloring strategy 
+     * Divides the slices of the crystal equally according to the number of colors in the array
+     * @param colors The color array that will be used for the pie slices 
+     */
     public ProgPieColor(Color[] colors) {
         this.colors = colors;
         this.cangle = 2 * Math.PI / colors.length;
     }
-
+    /**
+     * Allows pie slices to progressively change color by calculating the difference between colors and gradually transitioning
+     */
     @Override
     public void chooseColor(CParticle c) {
         Point p = c.getPos();

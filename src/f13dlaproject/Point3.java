@@ -5,13 +5,19 @@
 package f13dlaproject;
 
 /**
- *
+ * A class that represents a 3D Point
  * @author stu738510
  */
 public class Point3 implements Point {
 
     private double x,y,z;
     
+    /**
+     * Constructs a new 3D point 
+     * @param x The x coordinate of the 3D point 
+     * @param y The y coordinate of the 3D point 
+     * @param z The z coordinate of the 3D point 
+     */
     public Point3(double x, double y, double z){
         this.x=x;
         this.y=y;
@@ -53,6 +59,13 @@ public class Point3 implements Point {
         return new Point3(p.getX(),p.getY(),p.getZ());
     }
     
+    /**
+     * A static method for returning a new 3D point 
+     * @param x The x coordinate of the new 3D point 
+     * @param y The y coordinate of the new 3D point
+     * @param z The z coordinate of the new 3D point
+     * @return The new point with the given coordinates 
+     */
     public static Point3 point3(double x, double y, double z){
         return new Point3(x,y,z);
     }

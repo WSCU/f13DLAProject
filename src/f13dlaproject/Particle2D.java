@@ -86,6 +86,10 @@ public class Particle2D implements Particle {
         }
     }
     
+    /**
+     *
+     * @return unit vector of the point direction
+     */
     public Point getDirection() {
         return dir;
     }
@@ -116,6 +120,10 @@ public class Particle2D implements Particle {
         return p;
     }
 
+    /**
+     *
+     * @return The angle of the 2D particle 
+     */
     public double getAngle() {
         double oang = Math.acos(this.dir.getX()); //finds the original angle from origin
         if (this.dir.getY() < 0) {
@@ -155,16 +163,22 @@ public class Particle2D implements Particle {
         g.fillOval((int)(p.getX()*c.getZoom() - c.getZoom()/2)+(DLAFrame.WIDTH/2)-DLAFrame.dx, (int)(p.getY()*c.getZoom()-c.getZoom()/2)+(DLAFrame.HEIGHT/2) - DLAFrame.dy, (int)(c.getZoom()), (int)(c.getZoom()));
     }
 
+    /**
+     * String representation of the 2D Particle
+     *
+     * @return A String representation of a 2D Particle's position, directional
+     * angle in radians, and the number launched
+     */
     @Override
     public String toString() {
         return "Position: (" + p.getX() + ", " + p.getY() + ") Direction: " + this.getAngle() + " radians, Number Launched: " + this.numLaunched;
     }
 
-    /*
-     * static factory,
-     * checks the singleton variable to see if it has been created yet,
-     * if not create instance
-     * return instance
+     /**
+     * Static factory Checks the singleton variable to see if it has been
+     * created yet If not create an instance
+     *
+     * @return unique instance of a 2D Particle
      */
     public static Particle2D particle2D() {
         if (uniqueInstance == null) {

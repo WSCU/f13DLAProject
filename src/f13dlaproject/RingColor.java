@@ -7,17 +7,24 @@ package f13dlaproject;
 import java.awt.Color;
 
 /**
- *
- * @author stu473293
+ * A coloring strategy that colors the crystal in incremental rings
+ * @author outcast
  */
 public class RingColor implements ColoringStrategy{
     
     private Color[] colors;
     
+  /**
+     *
+     * @param c The color array that will be used for the individual rings
+     */
     public RingColor(Color[] c) {
         this.colors = c;
     }
-
+    /**
+     * Make a new ring based on the current particle's distance from the center divided by 10 
+     * Cycle through each color for the specified time 
+     */
     @Override
     public void chooseColor(CParticle c) {
         double dist = c.getDist();

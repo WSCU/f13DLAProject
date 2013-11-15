@@ -12,7 +12,7 @@ import static f13dlaproject.Crystal3D.*;
 import static f13dlaproject.Point3.*;
 
 /**
- *
+ * A class that represents a 3D particle of a crystal
  * @author stu738510
  */
 public class Particle3D implements Particle {
@@ -108,6 +108,10 @@ public class Particle3D implements Particle {
     }
 
   
+    /**
+     * Gets the unit vector of the direction of the 3D particle 
+     * @return the unit vector of the direction 
+     */
     public Point getAngle() {
         return dir;
     }
@@ -158,11 +162,11 @@ public class Particle3D implements Particle {
         this.numLaunched = 1;
     }
 
-    /*
-     * static factory,
-     * checks the singleton variable to see if it has been created yet,
-     * if not create instance
-     * return instance
+        /**
+     * Static factory
+     * Checks the singleton variable to see if it has been created yet
+     * If not create instance 
+     * @return unique instance of a 3D particle 
      */
     public static Particle3D particle3D() {
         if (uniqueInstance == null) {
