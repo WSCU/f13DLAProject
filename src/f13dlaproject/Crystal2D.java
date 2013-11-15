@@ -9,40 +9,54 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import static f13dlaproject.Point2.*;
 import static f13dlaproject.Particle2D.*;
+import java.io.File;
 import java.util.List;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
- * A class to represent a crystal in a 2D environment. Implements from {@link Crystal}
- * Singleton pattern
+ * A class to represent a crystal in a 2D environment. Implements from
+ * {@link Crystal} Singleton pattern
+ *
  * @author Graham and Ryan
  */
 public class Crystal2D implements Crystal {
-/**
- * A unique crystal 
- */ 
+
+    /**
+     * A unique crystal
+     */
     private static Crystal2D instance;
-     /**
- * The number of nodes in a crystal 
- */ 
+    /**
+     * The number of nodes in a crystal
+     */
     private int count;
     /**
- * The radius of the crystal 
- */
+     * The radius of the crystal
+     */
     private double radius;
-     /**
- * zoom factor to make the crystal fit to the window
- */
+    /**
+     * zoom factor to make the crystal fit to the window
+     */
     private double zoom;
     /**
- * A coloring strategy for the crystal
- */
+     * A coloring strategy for the crystal
+     */
     private ColoringStrategy color;
     //private ArrayList<CParticle> parts = new ArrayList();
     /**
- * An ArrayList of CParticles that make up the crystal 
- */
+     * An ArrayList of CParticles that make up the crystal
+     */
     private List<CParticle2> parts = new CopyOnWriteArrayList();
 
     /*
@@ -51,33 +65,35 @@ public class Crystal2D implements Crystal {
      * @author Graham and Ryan
      */
     private class CParticle2 implements CParticle {
-/**
- * Point position of crystal node  
- */
+
+        /**
+         * Point position of crystal node
+         */
         private Point p; //position of node
         /**
- * Number in which the node was added to the crystal  
- */
+         * Number in which the node was added to the crystal
+         */
         private int num; //number in which it was added to crystal
-         /**
- * Distance of node from center of crystal 
- */
+        /**
+         * Distance of node from center of crystal
+         */
         private double dist; //distance from center of cystal
-         /**
- * Color of crystal node  
- */
+        /**
+         * Color of crystal node
+         */
         private Color c;
-         /**
- * Parent of the crystal node  
- */
+        /**
+         * Parent of the crystal node
+         */
         private CParticle parent;
-         /**
- * Constructs a new node in the crystal of a 2D environment 
- * @param p Position of the node, represented by point (x, y)
- * @param num Number in which the node was added to the crystal 
- * @param parent Parent of the crystal node
- */
 
+        /**
+         * Constructs a new node in the crystal of a 2D environment
+         *
+         * @param p Position of the node, represented by point (x, y)
+         * @param num Number in which the node was added to the crystal
+         * @param parent Parent of the crystal node
+         */
         public CParticle2(Point p, int num, CParticle parent) { //constructor
             this.p = p.clone(p);
             this.num = num;
@@ -95,8 +111,8 @@ public class Crystal2D implements Crystal {
                 double nl = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
                 nx = nx / nl;
                 ny = ny / nl;
-                this.p.setX(px+nx);
-                this.p.setY(py+ny);
+                this.p.setX(px + nx);
+                this.p.setY(py + ny);
             }
         }
 
@@ -147,10 +163,11 @@ public class Crystal2D implements Crystal {
             return this.parent;
         }
     }
- /**
- * Constructor for a 2D crystal 
- * Instantiates the count, radius, zoom, color array, coloring strategy, CParticle
- */
+
+    /**
+     * Constructor for a 2D crystal Instantiates the count, radius, zoom, color
+     * array, coloring strategy, CParticle
+     */
     private Crystal2D() { //constructor
         this.count = 1;
         this.radius = 0;
@@ -171,9 +188,8 @@ public class Crystal2D implements Crystal {
     public double getZoom() {
         return zoom;
     }
-    
-   
-    public List<CParticle2> getCrystal(){
+
+    public List<CParticle2> getCrystal() {
         return parts;
     }
 
@@ -205,9 +221,10 @@ public class Crystal2D implements Crystal {
     public void setZoom(int z) {
         this.zoom = z;
     }
-  /**
- * Colors each particle in the node array to the passed in coloring strategy
- */
+
+    /**
+     * Colors each particle in the node array to the passed in coloring strategy
+     */
     @Override
     public void setColorStrategy(ColoringStrategy color) {
         this.color = color;
@@ -215,9 +232,10 @@ public class Crystal2D implements Crystal {
             color.chooseColor(p);
         }
     }
- /** 
- * Resets the node list to empty and the count to 0
- */
+
+    /**
+     * Resets the node list to empty and the count to 0
+     */
     @Override
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
@@ -241,9 +259,10 @@ public class Crystal2D implements Crystal {
         }
         return false;
     }
- /**
- * Iterates the nodes and draws each one
- */
+
+    /**
+     * Iterates the nodes and draws each one
+     */
     @Override
     public synchronized void draw(Graphics g) {//iterates the nodes and draws each one
         Iterator<CParticle2> iterator = parts.iterator();
@@ -256,10 +275,11 @@ public class Crystal2D implements Crystal {
 //        }
     }
 
- /**
- * Singleton static factory that generates a unique 2D crystal 
- * @return unique instance of a crystal 
- */
+    /**
+     * Singleton static factory that generates a unique 2D crystal
+     *
+     * @return unique instance of a crystal
+     */
     public static Crystal2D crystal2D() {
         if (instance == null) {
             instance = new Crystal2D();
@@ -269,10 +289,92 @@ public class Crystal2D implements Crystal {
 
     /**
      * Method to display the number of nodes in the crystal
-     * @return A String detailing the number of nodes in the crystal 
+     *
+     * @return A String detailing the number of nodes in the crystal
      */
     @Override
     public String toString() { // toString()
         return "Size: " + count;
+    }
+
+    /////////////////////////////////////////////////////
+    public void toFile(List<Crystal2D> c) {
+        try {
+
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+            // root elements
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("svg");
+            doc.appendChild(rootElement);
+
+            // set attribute to xmlns
+            Attr attr = doc.createAttribute("xmlns");
+            attr.setValue("http://www.w3.org/2000/svg");
+            rootElement.setAttributeNode(attr);
+
+            // set attribute to version
+            Attr attr2 = doc.createAttribute("version");
+            attr2.setValue("1.1");
+            rootElement.setAttributeNode(attr2);
+
+
+            for (CParticle cp : parts) {
+                double rad = this.radius;
+                Point pp = cp.getPos();
+                double xp = pp.getX();
+                double yp = pp.getY();
+                xp = rad - xp;
+                yp = rad - yp;
+                String xpos = String.valueOf(xp);
+                String ypos = String.valueOf(yp);
+                String color = "rgb("+cp.getColor().getRed()+","+cp.getColor().getGreen()+","+cp.getColor().getBlue()+")";
+
+
+                // circle
+                Element circle = doc.createElement("circle");
+                rootElement.appendChild(circle);
+
+                // set attribute to cx(circle x pos)
+                Attr attr3 = doc.createAttribute("cx");
+                attr3.setValue(xpos);
+                circle.setAttributeNode(attr3);
+
+                // set attribute to cy(circle y pos)
+                Attr attr4 = doc.createAttribute("cy");
+                attr4.setValue(ypos);
+                circle.setAttributeNode(attr4);
+
+                // set attribute to r(circle radius)
+                Attr attr5 = doc.createAttribute("r");
+                attr5.setValue("2");
+                circle.setAttributeNode(attr5);
+
+                // set attribute to fil(circle fill color)
+                Attr attr6 = doc.createAttribute("fill");
+                attr6.setValue(color);
+                circle.setAttributeNode(attr6);
+
+            }
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("C:\\Users\\stu738510\\Desktop\\Crystal.xml"));
+
+            // Output to console for testing
+            // StreamResult result = new StreamResult(System.out);
+
+            transformer.transform(source, result);
+
+            System.out.println("File saved!");
+
+        } catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        } catch (TransformerException tfe) {
+            tfe.printStackTrace();
+        }
     }
 }
