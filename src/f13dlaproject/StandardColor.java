@@ -35,7 +35,7 @@ public class StandardColor implements ColoringStrategy {
             difG = color[1] - tocolor[1];
             difB = color[2] - tocolor[2];
                       
-        } else {
+        } else if(colors.length>2){
             
             colors[m].getColorComponents(color);
             colors[m+1].getColorComponents(tocolor);
@@ -44,7 +44,14 @@ public class StandardColor implements ColoringStrategy {
             difG = color[1] - tocolor[1];
             difB = color[2] - tocolor[2];
                        
-        }    
+        } else{
+            colors[0].getColorComponents(color);
+            colors[0].getColorComponents(tocolor);
+                       
+            difR = color[0] - tocolor[0];
+            difG = color[1] - tocolor[1];
+            difB = color[2] - tocolor[2];
+        }   
         
             float per = (1.0f*((int)dist%changeDist))/changeDist;
             
