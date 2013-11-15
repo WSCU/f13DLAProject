@@ -14,12 +14,10 @@ import static f13dlaproject.Point3.*;
  */
 public class StructColor implements ColoringStrategy{
     
-    private Color[] colors;
+    private Color[] colors = {Color.YELLOW,Color.CYAN,Color.pink,};
     private Random r = new Random();
     
-    public StructColor(Color[] c){
-        this.colors = c;
-    }
+    public StructColor(Color[] c){    }
     
     @Override
     public void chooseColor(CParticle c) {
@@ -33,9 +31,17 @@ public class StructColor implements ColoringStrategy{
                     c.setColor(parent.getColor());
                 }
              else{
-                c.setColor(colors[r.nextInt(colors.length)]);
+                Color set = parent.getColor().darker();
+                int re = set.getRed(), g = set.getGreen(), b = set.getBlue();
+                int ave = (re+b+g)/3;
+                if(ave < 20){
+                    set = colors[r.nextInt(colors.length)];
+                }
+                c.setColor(set);
+                }           
             }
-                
+            else{
+                c.setColor(colors[r.nextInt(colors.length)]);
             }
         }
         else{
