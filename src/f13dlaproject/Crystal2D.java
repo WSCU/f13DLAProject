@@ -58,6 +58,10 @@ public class Crystal2D implements Crystal {
      * An ArrayList of CParticles that make up the crystal
      */
     private List<CParticle2> parts = new CopyOnWriteArrayList();
+    /**
+    * holds change position for convert to svg
+    */
+    private static double highest = 0, leftest = 0;
 
     /*
      * Declaration of inner CParticle class
@@ -86,6 +90,7 @@ public class Crystal2D implements Crystal {
          * Parent of the crystal node
          */
         private CParticle parent;
+        
 
         /**
          * Constructs a new node in the crystal of a 2D environment
@@ -99,10 +104,18 @@ public class Crystal2D implements Crystal {
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
             this.parent = parent;
-
+            
+            
+            
             if (parent != null) {
                 double tx = p.getX();
                 double ty = p.getY();
+                if(tx < leftest){
+                    leftest = tx-1;
+                }
+                if(ty < highest){
+                    highest = ty-1;
+                }
                 Point pp = parent.getPos();
                 double px = pp.getX();
                 double py = pp.getY();
@@ -245,7 +258,7 @@ public class Crystal2D implements Crystal {
         parts.add(cp);
         count = 0;
         zoom = 90;
-        radius = 0;
+        radius = highest = leftest = 0;
     }
 
     @Override
@@ -320,15 +333,14 @@ public class Crystal2D implements Crystal {
             attr2.setValue("1.1");
             rootElement.setAttributeNode(attr2);
 
-
+                      
             for (CParticle cp : parts) {
-                double crad = radius*zoom;
                 double prad = zoom/2;
                 Point pp = cp.getPos();
-                double xp = pp.getX()*zoom;
-                double yp = pp.getY()*zoom;
-                xp = (crad + xp);
-                yp = (crad + yp);
+                double xp = pp.getX();
+                double yp = pp.getY();
+                xp = (Math.abs(leftest) + xp)*zoom;
+                yp = (Math.abs(highest) + yp)*zoom;
                 String xpos = String.valueOf(xp);
                 String ypos = String.valueOf(yp);
                 String color = "rgb("+cp.getColor().getRed()+","+cp.getColor().getGreen()+","+cp.getColor().getBlue()+")";
