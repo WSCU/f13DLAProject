@@ -113,7 +113,7 @@ public class Crystal2D implements Crystal {
         this.count = 1;
         this.radius = 0;
         this.zoom = 20;
-        Color[] c = {Color.RED, Color.CYAN, Color.MAGENTA};
+        Color[] c = DLAFrame.cArray;
         this.color = new StandardColor(c);
         CParticle2 cp = new CParticle2(point2(0, 0), count, null);
         color.chooseColor(cp);

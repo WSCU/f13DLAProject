@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -61,6 +62,8 @@ public class DLAFrame extends javax.swing.JFrame {
      * Thread for the moveloop
      */
     public volatile Thread t;
+    
+    public static Color[] cArray = {Color.RED};
 
     /**
      * Creates new form DLAFrame
@@ -267,11 +270,16 @@ public class DLAFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        jPopupMenu3 = new javax.swing.JPopupMenu();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        popUp = new javax.swing.JPopupMenu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem6 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem7 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem8 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem9 = new javax.swing.JRadioButtonMenuItem();
         jPanel1 = new MyPanel();
         sizeLabel = new javax.swing.JLabel();
         launchedLabel = new javax.swing.JLabel();
@@ -291,23 +299,37 @@ public class DLAFrame extends javax.swing.JFrame {
         cDim = new javax.swing.JComboBox();
         colorStrat = new javax.swing.JComboBox();
         colorBox = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        colors = new javax.swing.JButton();
+        addArray = new javax.swing.JButton();
 
-        jPopupMenu1.setInvoker(colorStrat);
+        popUp.setInvoker(colors);
 
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
-        jPopupMenu1.add(jCheckBoxMenuItem1);
+        jRadioButtonMenuItem1.setText("Red");
+        popUp.add(jRadioButtonMenuItem1);
 
-        jPopupMenu2.setInvoker(jButton1);
-        jPopupMenu2.setLabel("popup");
+        jRadioButtonMenuItem2.setText("Green");
+        popUp.add(jRadioButtonMenuItem2);
 
-        jPopupMenu3.setInvoker(jButton1);
+        jRadioButtonMenuItem3.setText("Blue");
+        popUp.add(jRadioButtonMenuItem3);
 
-        jCheckBoxMenuItem2.setSelected(true);
-        jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
-        jCheckBoxMenuItem2.setInheritsPopupMenu(true);
-        jPopupMenu3.add(jCheckBoxMenuItem2);
+        jRadioButtonMenuItem4.setText("Yellow");
+        popUp.add(jRadioButtonMenuItem4);
+
+        jRadioButtonMenuItem5.setText("Orange");
+        popUp.add(jRadioButtonMenuItem5);
+
+        jRadioButtonMenuItem6.setText("Cyan");
+        popUp.add(jRadioButtonMenuItem6);
+
+        jRadioButtonMenuItem7.setText("Magenta");
+        popUp.add(jRadioButtonMenuItem7);
+
+        jRadioButtonMenuItem8.setText("Black");
+        popUp.add(jRadioButtonMenuItem8);
+
+        jRadioButtonMenuItem9.setText("White");
+        popUp.add(jRadioButtonMenuItem9);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -431,11 +453,18 @@ public class DLAFrame extends javax.swing.JFrame {
 
         colorBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Red", "Green", "Blue", "Yellow", "Orange", " " }));
 
-        jButton1.setText("Popup");
-        jButton1.setComponentPopupMenu(jPopupMenu3);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        colors.setText("Choose Colors(right-click)");
+        colors.setComponentPopupMenu(popUp);
+        colors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                colorsActionPerformed(evt);
+            }
+        });
+
+        addArray.setText("Make an Array of Colors");
+        addArray.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addArrayActionPerformed(evt);
             }
         });
 
@@ -483,9 +512,9 @@ public class DLAFrame extends javax.swing.JFrame {
                                 .addComponent(velocityfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(sizeLabel))
                         .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(colorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(colorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colors)
+                    .addComponent(addArray))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -531,9 +560,11 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addComponent(launchedLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sizeLabel)
-                .addGap(40, 40, 40)
-                .addComponent(jButton1)
-                .addGap(194, 194, 194))
+                .addGap(38, 38, 38)
+                .addComponent(colors)
+                .addGap(38, 38, 38)
+                .addComponent(addArray)
+                .addGap(135, 135, 135))
         );
 
         pack();
@@ -648,9 +679,71 @@ public class DLAFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_colorStratActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void colorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorsActionPerformed
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_colorsActionPerformed
+
+    private void addArrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrayActionPerformed
+        MenuElement[] ar = popUp.getSubElements();
+        JRadioButtonMenuItem[] jar = new JRadioButtonMenuItem[ar.length];
+        ArrayList<Color> cAList = new ArrayList<>(); 
+        
+        for(int i=0;i<ar.length;i++) {
+            jar[i] = (JRadioButtonMenuItem)ar[i];
+            if(jar[i].isSelected()) {
+                if(i == 0) {
+                    cAList.add(Color.RED);
+                }
+                if(i == 1) {
+                    cAList.add(Color.GREEN);
+                }
+                if(i == 2) {
+                    cAList.add(Color.BLUE);
+                }
+                if(i == 3) {
+                    cAList.add(Color.YELLOW);
+                }
+                if(i == 4) {
+                    cAList.add(Color.ORANGE);
+                }
+                if(i == 5) {
+                    cAList.add(Color.CYAN);
+                }
+                if(i == 6) {
+                    cAList.add(Color.MAGENTA);
+                }
+                if(i == 7) {
+                    cAList.add(Color.BLACK);
+                }
+                if(i == 8) {
+                    cAList.add(Color.WHITE);
+                }                
+            }            
+        }
+        cArray = new Color[cAList.size()];
+        for(int i=0;i<cArray.length;i++) {
+            cArray[i] = cAList.get(i);
+            System.out.println(cArray[i]);
+        }        
+        if(colorStrat.getSelectedIndex() == 0){
+            c.setColorStrategy(new StandardColor(cArray));
+        }
+        else if(colorStrat.getSelectedIndex() == 1){
+            c.setColorStrategy(new StandardTimeColor(cArray));
+        }
+        else if(colorStrat.getSelectedIndex() == 2){
+            c.setColorStrategy(new RingColor(cArray));
+        }
+        else if(colorStrat.getSelectedIndex() == 3){
+            c.setColorStrategy(new ProgPieColor(cArray));
+        }
+        else if(colorStrat.getSelectedIndex() == 4){
+            c.setColorStrategy(new PieColor(cArray));
+        }
+        else if(colorStrat.getSelectedIndex() == 5){
+            c.setColorStrategy(new StructColor(cArray));
+        }
+    }//GEN-LAST:event_addArrayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -687,25 +780,31 @@ public class DLAFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addArray;
     private javax.swing.JTextField afield;
     private javax.swing.JLabel alabel;
     private javax.swing.JComboBox cDim;
     private javax.swing.JButton clearButton;
     private javax.swing.JComboBox colorBox;
     private javax.swing.JComboBox colorStrat;
+    private javax.swing.JButton colors;
     private javax.swing.JCheckBox displayCheck;
     private javax.swing.JTextField intervalfield;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JPopupMenu jPopupMenu3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem6;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem7;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem8;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem9;
     private javax.swing.JLabel launchedLabel;
     private javax.swing.JButton pauseButton;
+    private javax.swing.JPopupMenu popUp;
     private javax.swing.JLabel sizeLabel;
     private javax.swing.JButton startButton;
     private javax.swing.JTextField velocityfield;
