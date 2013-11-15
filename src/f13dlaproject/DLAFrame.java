@@ -63,7 +63,7 @@ public class DLAFrame extends javax.swing.JFrame {
      */
     public volatile Thread t;
     
-    public static Color[] cArray = {Color.RED};
+    public static Color[] cArray = {Color.RED, Color.RED};
 
     /**
      * Creates new form DLAFrame
