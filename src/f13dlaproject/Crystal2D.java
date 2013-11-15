@@ -298,7 +298,8 @@ public class Crystal2D implements Crystal {
     }
 
     /////////////////////////////////////////////////////
-    public void toFile(List<Crystal2D> c) {
+    @Override
+    public void outputToFile() {
         try {
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -321,13 +322,13 @@ public class Crystal2D implements Crystal {
 
 
             for (CParticle cp : parts) {
-                double crad = radius;
-                double prad = 20/zoom;
+                double crad = radius*zoom;
+                double prad = zoom/2;
                 Point pp = cp.getPos();
-                double xp = pp.getX();
-                double yp = pp.getY();
-                xp = crad - xp;
-                yp = crad - yp;
+                double xp = pp.getX()*zoom;
+                double yp = pp.getY()*zoom;
+                xp = (crad + xp);
+                yp = (crad + yp);
                 String xpos = String.valueOf(xp);
                 String ypos = String.valueOf(yp);
                 String color = "rgb("+cp.getColor().getRed()+","+cp.getColor().getGreen()+","+cp.getColor().getBlue()+")";

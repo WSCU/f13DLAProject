@@ -39,8 +39,11 @@ public interface Crystal {
      * @return The size of the crystal
      */
     public int getSize();
-      
-    
+     /**
+     * Gets the cparticle representation of the crystal
+     * @return the crystal
+     */  
+    public void outputToFile();
     /**
      * Determines if each individual particle has collided. 
      * @return Return true if any of the particles have collided, false if not

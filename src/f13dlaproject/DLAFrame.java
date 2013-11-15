@@ -301,6 +301,7 @@ public class DLAFrame extends javax.swing.JFrame {
         colorBox = new javax.swing.JComboBox();
         colors = new javax.swing.JButton();
         addArray = new javax.swing.JButton();
+        outputButton = new javax.swing.JButton();
 
         popUp.setInvoker(colors);
 
@@ -468,6 +469,13 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
+        outputButton.setText("Output To File");
+        outputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outputButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -514,7 +522,8 @@ public class DLAFrame extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(colorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colors)
-                    .addComponent(addArray))
+                    .addComponent(addArray)
+                    .addComponent(outputButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -564,7 +573,9 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addComponent(colors)
                 .addGap(38, 38, 38)
                 .addComponent(addArray)
-                .addGap(135, 135, 135))
+                .addGap(18, 18, 18)
+                .addComponent(outputButton)
+                .addGap(94, 94, 94))
         );
 
         pack();
@@ -750,6 +761,11 @@ public class DLAFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addArrayActionPerformed
 
+    private void outputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputButtonActionPerformed
+        // TODO add your handling code here:
+        c.outputToFile();
+    }//GEN-LAST:event_outputButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -808,6 +824,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem8;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem9;
     private javax.swing.JLabel launchedLabel;
+    private javax.swing.JButton outputButton;
     private javax.swing.JButton pauseButton;
     private javax.swing.JPopupMenu popUp;
     private javax.swing.JLabel sizeLabel;

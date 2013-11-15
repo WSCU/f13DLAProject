@@ -133,6 +133,8 @@ public class Crystal3D implements Crystal{
         this.color= new StandardColor(c);
     }
 
+    
+
     private static class CParticle3 implements CParticle {
         private Point p; //position of node
         private int num; //number in which it was added to crystal
@@ -190,6 +192,11 @@ public class Crystal3D implements Crystal{
         public CParticle getParent() {
             return this.parent;
         }
+    }
+    
+     @Override
+    public void outputToFile() {
+        throw new UnsupportedOperationException("SVG 3D Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
