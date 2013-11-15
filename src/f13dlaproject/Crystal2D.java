@@ -321,16 +321,17 @@ public class Crystal2D implements Crystal {
 
 
             for (CParticle cp : parts) {
-                double rad = this.radius;
+                double crad = radius;
+                double prad = 20/zoom;
                 Point pp = cp.getPos();
                 double xp = pp.getX();
                 double yp = pp.getY();
-                xp = rad - xp;
-                yp = rad - yp;
+                xp = crad - xp;
+                yp = crad - yp;
                 String xpos = String.valueOf(xp);
                 String ypos = String.valueOf(yp);
                 String color = "rgb("+cp.getColor().getRed()+","+cp.getColor().getGreen()+","+cp.getColor().getBlue()+")";
-
+                String radius = String.valueOf(prad);
 
                 // circle
                 Element circle = doc.createElement("circle");
@@ -348,7 +349,7 @@ public class Crystal2D implements Crystal {
 
                 // set attribute to r(circle radius)
                 Attr attr5 = doc.createAttribute("r");
-                attr5.setValue("2");
+                attr5.setValue(radius);
                 circle.setAttributeNode(attr5);
 
                 // set attribute to fil(circle fill color)
