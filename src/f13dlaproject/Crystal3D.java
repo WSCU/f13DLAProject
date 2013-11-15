@@ -160,6 +160,25 @@ public class Crystal3D implements Crystal {
             this.p = p.clone(p);
             this.num = i;
             this.parent = parent;
+            if (parent != null) {
+                double tx = p.getX();
+                double ty = p.getY();
+                double tz = p.getZ();
+                Point pp = parent.getPos();
+                double px = pp.getX();
+                double py = pp.getY();
+                double pz = pp.getZ();
+                double nx = tx - px;
+                double ny = ty - py;
+                double nz = tz - pz;
+                double nl = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2) + Math.pow(nz, 2));
+                nx = nx / nl;
+                ny = ny / nl;
+                nz = nz / nl;
+                this.p.setX(px + nx);
+                this.p.setY(py + ny);
+                this.p.setZ(py + nz);
+            }
         }
 
         @Override
