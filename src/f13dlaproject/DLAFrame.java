@@ -762,6 +762,7 @@ public class DLAFrame extends javax.swing.JFrame {
 
     private void outputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputButtonActionPerformed
         // TODO add your handling code here:
+        fileName = fileinName.getText();
         c.outputToFile();
     }//GEN-LAST:event_outputButtonActionPerformed
 
