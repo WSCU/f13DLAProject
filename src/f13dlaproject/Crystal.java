@@ -5,6 +5,8 @@
 package f13dlaproject;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An interface for an entire Crystal
@@ -37,11 +39,13 @@ public interface Crystal {
      * @return The size of the crystal
      */
     public int getSize();
+      
     
     /**
      * Determines if each individual particle has collided. 
      * @return Return true if any of the particles have collided, false if not
      */
+    
     public boolean collides();
     
     /**

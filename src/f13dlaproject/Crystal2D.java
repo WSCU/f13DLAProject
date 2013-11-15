@@ -171,6 +171,11 @@ public class Crystal2D implements Crystal {
     public double getZoom() {
         return zoom;
     }
+    
+   
+    public List<CParticle2> getCrystal(){
+        return parts;
+    }
 
     @Override
     public void add(Particle p, CParticle parent) {//adds node to crystal
