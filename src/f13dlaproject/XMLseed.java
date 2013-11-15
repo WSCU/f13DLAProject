@@ -4,6 +4,8 @@
  */
 package f13dlaproject;
 
+import static f13dlaproject.Crystal2D.crystal2D;
+import static f13dlaproject.Crystal3D.crystal3D;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -40,22 +42,26 @@ public class XMLseed {
 //        is.setCharacterStream(new StringReader(xml));
         Document doc = dBuilder.parse(is);
         doc.getDocumentElement().normalize();
+        boolean two = true;
 
         NodeList nList = doc.getElementsByTagName("crystal");
+        Node typecheck = nList.item(0);
+        Element eCheck = (Element) typecheck;
+        if (eCheck.getAttribute("type").equals("2d")) two = true;
+        else two = false;
+        nList = doc.getElementsByTagName("cparticle");
         for (int i = 0; i < nList.getLength(); i++) {
             Node nNode = nList.item(i);
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element e = (Element) nNode;
-                if (e.getAttribute("type").equals("2d")) {
-                    two(e);
-                } else {
-                    three(e);
-                }
+                if (two) two(e);
+                else three(e);
             }
         }
 
     }
+    
 
     /**
      *
@@ -64,6 +70,7 @@ public class XMLseed {
     public static void two(Element e) {
         Point2 p = new Point2(Double.parseDouble(e.getElementsByTagName("x").item(0).getTextContent()), Double.parseDouble(e.getElementsByTagName("y").item(0).getTextContent()));
         particle2D().setPosition(p);
+        crystal2D().add(particle2D(), null);
     }
 
     /**
@@ -74,5 +81,6 @@ public class XMLseed {
         Point3 p = new Point3(Double.parseDouble(e.getElementsByTagName("x").item(0).getTextContent()), Double.parseDouble(e.getElementsByTagName("y").item(0).getTextContent()),
                 Double.parseDouble(e.getElementsByTagName("z").item(0).getTextContent()));
         particle3D().setPosition(p);
+        crystal3D().add(particle3D(), null);
     }
 }
