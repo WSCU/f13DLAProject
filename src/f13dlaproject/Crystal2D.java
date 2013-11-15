@@ -192,15 +192,15 @@ public class Crystal2D implements Crystal {
     }
 
     @Override
-    public void draw(Graphics g) {//iterates the nodes and draws each one
+    public synchronized void draw(Graphics g) {//iterates the nodes and draws each one
         Iterator<CParticle2> iterator = parts.iterator();
-//        for (CParticle p : parts) {
-//            p.draw(g);
-//        }
-        while (iterator.hasNext()) {
-            CParticle p = iterator.next();
+        for (CParticle p : parts) {
             p.draw(g);
         }
+//        while (iterator.hasNext()) {
+//            CParticle p = iterator.next();
+//            p.draw(g);
+//        }
     }
 
     /*
