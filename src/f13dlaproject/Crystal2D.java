@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author Graham and Ryan
  */
-public class Crystal2D implements Crystal{
+public class Crystal2D implements Crystal {
 
     private static Crystal2D instance;
     private int count;
@@ -38,12 +38,27 @@ public class Crystal2D implements Crystal{
         private double dist; //distance from center of cystal
         private Color c;
         private CParticle parent;
-        
+
         public CParticle2(Point p, int num, CParticle parent) { //constructor
             this.p = p.clone(p);
             this.num = num;
             this.dist = Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
             this.parent = parent;
+
+            if (parent != null) {
+                double tx = p.getX();
+                double ty = p.getY();
+                Point pp = parent.getPos();
+                double px = pp.getX();
+                double py = pp.getY();
+                double nx = tx - px;
+                double ny = ty - py;
+                double nl = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
+                nx = nx / nl;
+                ny = ny / nl;
+                this.p.setX(px+nx);
+                this.p.setY(py+ny);
+            }
         }
 
         @Override
@@ -56,15 +71,15 @@ public class Crystal2D implements Crystal{
         public CParticle collides() {
             Particle2D t = particle2D();
             Point pos = t.getPosition();
-            double distance = Math.sqrt(Math.pow(p.getX()-pos.getX(),2)+Math.pow(p.getY()-pos.getY(),2));
-            if (distance < 1) {
+            double distance = Math.sqrt(Math.pow(p.getX() - pos.getX(), 2) + Math.pow(p.getY() - pos.getY(), 2));
+            if (distance <= 1) {
                 return this;
             }
             return null;
         }
-        
+
         @Override
-        public void setColor(Color c){
+        public void setColor(Color c) {
             this.c = c;
         }
 
@@ -125,12 +140,12 @@ public class Crystal2D implements Crystal{
         parts.add(part);
         if (dist > radius) {
             radius = dist;
-           if(DLAFrame.autoZ){
-            zoom = 20 - Math.pow((radius) / 11, 2);
-           if(zoom < 5){
-               zoom = 5;
-           }
-           }
+            if (DLAFrame.autoZ) {
+                zoom = 20 - Math.pow((radius) / 11, 2);
+                if (zoom < 5) {
+                    zoom = 5;
+                }
+            }
         }
     }
 
@@ -138,16 +153,16 @@ public class Crystal2D implements Crystal{
     public int getSize() { //returns the number of nodes
         return count;
     }
-    
+
     @Override
-    public void setZoom(int z){
+    public void setZoom(int z) {
         this.zoom = z;
     }
-    
+
     @Override
-    public void setColorStrategy(ColoringStrategy color){
+    public void setColorStrategy(ColoringStrategy color) {
         this.color = color;
-        for(CParticle2 p: parts){
+        for (CParticle2 p : parts) {
             color.chooseColor(p);
         }
     }
@@ -168,7 +183,7 @@ public class Crystal2D implements Crystal{
     public boolean collides() {
         for (CParticle2 p : parts) {
             CParticle recent = p.collides();
-            if (recent!=null) {
+            if (recent != null) {
                 this.add(particle2D(), recent);
                 return true;
             }

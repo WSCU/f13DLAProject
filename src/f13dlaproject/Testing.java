@@ -25,15 +25,20 @@ public class Testing {
         double difAng;
         double ang;
         int counter=0;
-        while(counter<stop){
+        for(;counter<stop; counter++){
             p.setAngle();
            ang = p.getAngle();
            difAng = Math.abs(ang-oang);
-            System.out.println(difAng);
+            System.out.println(difAng + ", counter = " + counter);
+          
            if (difAng > bounds){
+               if(difAng < (2*Math.PI)-bounds){
+               System.out.println((2*Math.PI)-bounds);
                return "Angle out of bounds";
            }
-           counter++;
+           }
+           oang=ang;
+          
         }
         return "Angle is working";
     }
