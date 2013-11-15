@@ -28,37 +28,20 @@ public class StandardColor implements ColoringStrategy {
     public void chooseColor(CParticle c) {
         double dist = c.getDist();
         int changeDist = 20;
-        int m = (int)dist/changeDist % 3;
+        int m = (int)dist/changeDist % colors.length;
         float difR,difG,difB;
         float[] color = new float[3];
         float[] tocolor = new float[3];
         
-        if (m == colors.length-1) {
+    
             
             colors[m].getColorComponents(color);
-            colors[0].getColorComponents(tocolor);
+            colors[(m+1)%colors.length].getColorComponents(tocolor);
                        
             difR = color[0] - tocolor[0];
             difG = color[1] - tocolor[1];
             difB = color[2] - tocolor[2];
-                      
-        } else if(colors.length>2){
-            
-            colors[m].getColorComponents(color);
-            colors[m+1].getColorComponents(tocolor);
-                       
-            difR = color[0] - tocolor[0];
-            difG = color[1] - tocolor[1];
-            difB = color[2] - tocolor[2];
-                       
-        } else{
-            colors[0].getColorComponents(color);
-            colors[0].getColorComponents(tocolor);
-                       
-            difR = color[0] - tocolor[0];
-            difG = color[1] - tocolor[1];
-            difB = color[2] - tocolor[2];
-        }   
+        
         
             float per = (1.0f*((int)dist%changeDist))/changeDist;
             
