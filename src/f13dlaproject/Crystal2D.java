@@ -376,7 +376,7 @@ public class Crystal2D implements Crystal {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\stu738510\\Desktop\\Crystal.xml"));
+            StreamResult result = new StreamResult(new File(DLAFrame.fileName + ".svg"));
 
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);

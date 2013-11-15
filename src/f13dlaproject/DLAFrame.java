@@ -61,14 +61,16 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      * Thread for the moveloop
      */
-    public volatile Thread t;
+    /**
+     * file name to be saved to
+     */
+    public static String fileName ="Crystal";
     
+    public volatile Thread t;
     public static Color[] cArray = {Color.RED, Color.RED};
-
     /**
      * Creates new form DLAFrame
      */
-    
     /**
      * creates the particle variable(can hold 2D or 3D)
      */
@@ -77,8 +79,7 @@ public class DLAFrame extends javax.swing.JFrame {
      * creates the crystal variable(hold 2 or 3 D)
      */
     public Crystal c;
-    
-    
+
     public DLAFrame() {
         p = particle2D();
         c = crystal2D();
@@ -109,13 +110,12 @@ public class DLAFrame extends javax.swing.JFrame {
                         }
                         //System.out.println("HELLO");
                     }
-                    
+
                 } catch (InterruptedException e) {
                     return;
                 }
             }
         }
-
     }
 
     /**
@@ -132,14 +132,15 @@ public class DLAFrame extends javax.swing.JFrame {
     public void stop() {
         t = null;
     }
+
     private void displayGUI() {
         final JFrame frame2 = new JFrame("Screenshot Dialog");
         frame2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame2.addWindowListener(new WindowListener() {
             @Override
             public void windowClosing(WindowEvent e) {
-                    frame2.setVisible(false);
-                    frame2.dispose();
+                frame2.setVisible(false);
+                frame2.dispose();
             }
 
             @Override
@@ -163,21 +164,21 @@ public class DLAFrame extends javax.swing.JFrame {
             }
 
             @Override
-            public void windowDeactivated(WindowEvent e){
+            public void windowDeactivated(WindowEvent e) {
             }
         });
         JPanel contentPane = new JPanel();
         contentPane.setBorder(
-        BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                BorderFactory.createEmptyBorder(5, 5, 5, 5));
         panel1 = new DialogPanel(contentPane);
         contentPane.add(panel1, "Panel 1");
         frame2.setContentPane(contentPane);
-        frame2.pack();   
+        frame2.pack();
         frame2.setLocationByPlatform(true);
         frame2.setVisible(true);
- 
+
     }
-    
+
     class DialogPanel extends JPanel {
 
         private JTextField How;
@@ -188,30 +189,28 @@ public class DLAFrame extends javax.swing.JFrame {
         public DialogPanel(JPanel panel) {
 
             contentPane = panel;
-            How = new JTextField (1);
-            exlabel = new JLabel ("Example Label:");
-            exbutton = new JButton ("Button");
+            How = new JTextField(1);
+            exlabel = new JLabel("Example Label:");
+            exbutton = new JButton("Button");
             //adjust size and set layout
-            setPreferredSize (new Dimension (315, 85));
-            setLayout (null);
+            setPreferredSize(new Dimension(315, 85));
+            setLayout(null);
 
             //set component bounds (only needed by Absolute Positioning)
-            How.setBounds (100, 50, 200, 25);
-            exlabel.setBounds (0, 50, 100, 20);
+            How.setBounds(100, 50, 200, 25);
+            exlabel.setBounds(0, 50, 100, 20);
             exbutton.setLocation(0, 0);
             exbutton.setSize(100, 25);
-            exbutton.addActionListener( new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
+            exbutton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
                     System.out.println("Test Action");
                 }
             });
 
-        //add components
-            add (How);
-            add (exlabel);
-            add (exbutton);
+            //add components
+            add(How);
+            add(exlabel);
+            add(exbutton);
         }
     }
 
@@ -302,6 +301,7 @@ public class DLAFrame extends javax.swing.JFrame {
         colors = new javax.swing.JButton();
         addArray = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
+        fileinName = new javax.swing.JTextField();
 
         popUp.setInvoker(colors);
 
@@ -476,6 +476,13 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
+        fileinName.setText("Crystal");
+        fileinName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileinNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -523,7 +530,10 @@ public class DLAFrame extends javax.swing.JFrame {
                         .addComponent(colorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colors)
                     .addComponent(addArray)
-                    .addComponent(outputButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(outputButton)
+                        .addGap(45, 45, 45)
+                        .addComponent(fileinName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -574,7 +584,9 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(addArray)
                 .addGap(18, 18, 18)
-                .addComponent(outputButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(outputButton)
+                    .addComponent(fileinName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(94, 94, 94))
         );
 
@@ -647,124 +659,115 @@ public class DLAFrame extends javax.swing.JFrame {
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
         clock.stop();
-        stop();   
+        stop();
         paused = true;
         p.clear();
         c.clear();
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void screenshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotButtonActionPerformed
-    displayGUI();
+        displayGUI();
     }//GEN-LAST:event_screenshotButtonActionPerformed
 
     private void cDimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cDimActionPerformed
-        if(cDim.getSelectedIndex() == 1){
+        if (cDim.getSelectedIndex() == 1) {
             p = particle3D();
             c = crystal3D();
-        }
-        else{
+        } else {
             p = particle2D();
             c = crystal2D();
         }
     }//GEN-LAST:event_cDimActionPerformed
 
     private void colorStratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorStratActionPerformed
-        if(colorStrat.getSelectedIndex() == 0){
+        if (colorStrat.getSelectedIndex() == 0) {
             c.setColorStrategy(new StandardColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 1){
+        } else if (colorStrat.getSelectedIndex() == 1) {
             c.setColorStrategy(new StandardTimeColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 2){
+        } else if (colorStrat.getSelectedIndex() == 2) {
             c.setColorStrategy(new RingColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 3){
+        } else if (colorStrat.getSelectedIndex() == 3) {
             c.setColorStrategy(new ProgPieColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 4){
+        } else if (colorStrat.getSelectedIndex() == 4) {
             c.setColorStrategy(new PieColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 5){
+        } else if (colorStrat.getSelectedIndex() == 5) {
             c.setColorStrategy(new StructColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 6){
+        } else if (colorStrat.getSelectedIndex() == 6) {
             c.setColorStrategy(new NuclearColor());
         }
     }//GEN-LAST:event_colorStratActionPerformed
 
     private void colorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorsActionPerformed
-        
     }//GEN-LAST:event_colorsActionPerformed
 
     private void addArrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrayActionPerformed
         MenuElement[] ar = popUp.getSubElements();
         JRadioButtonMenuItem[] jar = new JRadioButtonMenuItem[ar.length];
-        ArrayList<Color> cAList = new ArrayList<>();         
-        for(int i=0;i<ar.length;i++) {
-            jar[i] = (JRadioButtonMenuItem)ar[i];
-            if(jar[i].isSelected()) {
-                if(i == 0) {
+        ArrayList<Color> cAList = new ArrayList<>();
+        for (int i = 0; i < ar.length; i++) {
+            jar[i] = (JRadioButtonMenuItem) ar[i];
+            if (jar[i].isSelected()) {
+                if (i == 0) {
                     cAList.add(Color.RED);
                 }
-                if(i == 1) {
+                if (i == 1) {
                     cAList.add(Color.GREEN);
                 }
-                if(i == 2) {
+                if (i == 2) {
                     cAList.add(Color.BLUE);
                 }
-                if(i == 3) {
+                if (i == 3) {
                     cAList.add(Color.YELLOW);
                 }
-                if(i == 4) {
+                if (i == 4) {
                     cAList.add(Color.ORANGE);
                 }
-                if(i == 5) {
+                if (i == 5) {
                     cAList.add(Color.CYAN);
                 }
-                if(i == 6) {
+                if (i == 6) {
                     cAList.add(Color.MAGENTA);
                 }
-                if(i == 7) {
+                if (i == 7) {
                     cAList.add(Color.BLACK);
                 }
-                if(i == 8) {
+                if (i == 8) {
                     cAList.add(Color.WHITE);
-                }                
-            }            
-        }        
-        if(cAList.size() == 0) {
-        cAList.add(Color.RED);
+                }
+            }
+        }
+        if (cAList.size() == 0) {
+            cAList.add(Color.RED);
         }
         cArray = new Color[cAList.size()];
-        for(int i=0;i<cArray.length;i++) {
+        for (int i = 0; i < cArray.length; i++) {
             cArray[i] = cAList.get(i);
             System.out.println(cArray[i]);
-        }                
-        if(colorStrat.getSelectedIndex() == 0){
+        }
+        if (colorStrat.getSelectedIndex() == 0) {
             c.setColorStrategy(new StandardColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 1){
+        } else if (colorStrat.getSelectedIndex() == 1) {
             c.setColorStrategy(new StandardTimeColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 2){
+        } else if (colorStrat.getSelectedIndex() == 2) {
             c.setColorStrategy(new RingColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 3){
+        } else if (colorStrat.getSelectedIndex() == 3) {
             c.setColorStrategy(new ProgPieColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 4){
+        } else if (colorStrat.getSelectedIndex() == 4) {
             c.setColorStrategy(new PieColor(cArray));
-        }
-        else if(colorStrat.getSelectedIndex() == 5){
+        } else if (colorStrat.getSelectedIndex() == 5) {
             c.setColorStrategy(new StructColor(cArray));
         }
-        
+
     }//GEN-LAST:event_addArrayActionPerformed
 
     private void outputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputButtonActionPerformed
         // TODO add your handling code here:
         c.outputToFile();
     }//GEN-LAST:event_outputButtonActionPerformed
+
+    private void fileinNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileinNameActionPerformed
+        fileName = fileinName.getText();
+    }//GEN-LAST:event_fileinNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -810,6 +813,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox colorStrat;
     private javax.swing.JButton colors;
     private javax.swing.JCheckBox displayCheck;
+    private javax.swing.JTextField fileinName;
     private javax.swing.JTextField intervalfield;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
