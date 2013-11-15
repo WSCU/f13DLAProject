@@ -172,5 +172,9 @@ public class Particle2D implements Particle {
         }
         return uniqueInstance;
     }
+    
+    public void setPosition(Point p) {
+        this.p = (Point2) p;
+    }
 
 }

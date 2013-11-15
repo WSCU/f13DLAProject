@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <crystal type="2d">
+        <particles>
+            <cparticle>
+                <x></x>
+                <y></y>
+            </cparticle>
+        </particles>
+    </crystal>
+    
+    <crystal type="3d">
+        <particles>
+            <cparticle>
+                <x></x>
+                <y></y>
+                <z></z>
+            </cparticle>
+        </particles>
+    </crystal>
+</root>

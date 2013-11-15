@@ -170,4 +170,8 @@ public class Particle3D implements Particle {
         }
         return uniqueInstance;
     }
+    
+    public void setPosition(Point p) {
+        this.p = (Point3) p;
+    }
 }
