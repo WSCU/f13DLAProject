@@ -98,7 +98,7 @@ public class DLAFrame extends javax.swing.JFrame {
             Thread thisThread = Thread.currentThread();
             while (t == thisThread) {
                 try {
-                    while (!display) {
+                    while (!display && !paused) {
                         p.setAngle();
                         p.move();
                         time++;
@@ -635,6 +635,9 @@ public class DLAFrame extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
+        clock.stop();
+        stop();   
+        paused = true;
         p.clear();
         c.clear();
     }//GEN-LAST:event_clearButtonActionPerformed
@@ -655,24 +658,23 @@ public class DLAFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cDimActionPerformed
 
     private void colorStratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorStratActionPerformed
-        Color[] co =  {Color.RED, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.BLUE, Color.gray};       
         if(colorStrat.getSelectedIndex() == 0){
-            c.setColorStrategy(new StandardColor(co));
+            c.setColorStrategy(new StandardColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 1){
-            c.setColorStrategy(new StandardTimeColor(co));
+            c.setColorStrategy(new StandardTimeColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 2){
-            c.setColorStrategy(new RingColor(co));
+            c.setColorStrategy(new RingColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 3){
-            c.setColorStrategy(new ProgPieColor(co));
+            c.setColorStrategy(new ProgPieColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 4){
-            c.setColorStrategy(new PieColor(co));
+            c.setColorStrategy(new PieColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 5){
-            c.setColorStrategy(new StructColor(co));
+            c.setColorStrategy(new StructColor(cArray));
         }
         else if(colorStrat.getSelectedIndex() == 6){
             c.setColorStrategy(new NuclearColor());
