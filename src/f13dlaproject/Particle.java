@@ -38,6 +38,11 @@ public interface Particle {
     public void setPosition();
     
     /**
+     * Sets position of particle to the given point
+     */
+    public void setPosition(Point p);
+    
+    /**
      * Tells us the number of particles launched so far
      * @return The number of particles launched
      */
