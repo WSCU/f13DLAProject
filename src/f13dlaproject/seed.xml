@@ -8,21 +8,17 @@ and open the template in the editor.
 
 <root>
     <crystal type="2d">
-        <particles>
-            <cparticle>
-                <x></x>
-                <y></y>
-            </cparticle>
-        </particles>
-    </crystal>
-    
-    <crystal type="3d">
-        <particles>
-            <cparticle>
-                <x></x>
-                <y></y>
-                <z></z>
-            </cparticle>
-        </particles>
+        <cparticle>
+            <x>10</x>
+            <y>10</y>
+        </cparticle>
+        <cparticle>
+            <x>20</x>
+            <y>20</y>
+        </cparticle>
+        <cparticle>
+            <x>30</x>
+            <y>30</y>
+        </cparticle>
     </crystal>
 </root>
