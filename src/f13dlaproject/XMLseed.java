@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import static f13dlaproject.Particle.*;
 import static f13dlaproject.Particle2D.particle2D;
 import static f13dlaproject.Particle3D.particle3D;
+import java.io.FileReader;
 
 /**
  * XML Seed 
@@ -39,7 +40,7 @@ public class XMLseed {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         InputSource is = new InputSource();
-//        is.setCharacterStream(new StringReader(xml));
+        is.setCharacterStream(new FileReader(f));
         Document doc = dBuilder.parse(is);
         doc.getDocumentElement().normalize();
         boolean two = true;

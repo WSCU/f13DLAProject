@@ -18,7 +18,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -64,8 +70,8 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      * file name to be saved to
      */
-    public static String fileName ="Crystal";
-    
+    public static String fileName = "Crystal";
+
     public volatile Thread t;
     public static Color[] cArray = {Color.RED, Color.RED};
     /**
@@ -78,6 +84,9 @@ public class DLAFrame extends javax.swing.JFrame {
     /**
      * creates the crystal variable(hold 2 or 3 D)
      */
+
+    JFileChooser fileChooser = new JFileChooser();
+
     public Crystal c;
 
     public DLAFrame() {
@@ -302,6 +311,7 @@ public class DLAFrame extends javax.swing.JFrame {
         addArray = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
         fileinName = new javax.swing.JTextField();
+        xmlbutton = new javax.swing.JButton();
 
         popUp.setInvoker(colors);
 
@@ -483,6 +493,13 @@ public class DLAFrame extends javax.swing.JFrame {
             }
         });
 
+        xmlbutton.setText("XML Seed");
+        xmlbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xmlbuttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -533,12 +550,13 @@ public class DLAFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(outputButton)
                         .addGap(45, 45, 45)
-                        .addComponent(fileinName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fileinName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(xmlbutton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +605,9 @@ public class DLAFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(outputButton)
                     .addComponent(fileinName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94))
+                .addGap(18, 18, 18)
+                .addComponent(xmlbutton)
+                .addGap(51, 51, 51))
         );
 
         pack();
@@ -770,6 +790,25 @@ public class DLAFrame extends javax.swing.JFrame {
         fileName = fileinName.getText();
     }//GEN-LAST:event_fileinNameActionPerformed
 
+    private void xmlbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xmlbuttonActionPerformed
+
+        int retval = fileChooser.showOpenDialog(this);
+        if (retval == JFileChooser.APPROVE_OPTION) {
+            try {
+                File file = fileChooser.getSelectedFile();
+                XMLseed.fromXML(file);
+            } // TODO add your handling code here:
+            catch (SAXException ex) {
+                Logger.getLogger(DLAFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DLAFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(DLAFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }       
+
+    }//GEN-LAST:event_xmlbuttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -836,6 +875,7 @@ public class DLAFrame extends javax.swing.JFrame {
     private javax.swing.JButton startButton;
     private javax.swing.JTextField velocityfield;
     private javax.swing.JLabel velocitylabel;
+    private javax.swing.JButton xmlbutton;
     private javax.swing.JCheckBox zoomCheck;
     private javax.swing.JSlider zoomFactor;
     // End of variables declaration//GEN-END:variables

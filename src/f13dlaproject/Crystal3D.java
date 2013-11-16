@@ -53,7 +53,11 @@ public class Crystal3D implements Crystal {
      * Most recent CParticle
      */
     private CParticle recent;
-
+    
+    /**
+     * 
+     */
+    private static double closest = 0;
     /**
      * Constructor for a 3D crystal Instantiates the count, radius, zoom, color
      * array, coloring strategy, CParticle
@@ -68,7 +72,7 @@ public class Crystal3D implements Crystal {
         CParticle3 p = new CParticle3(point3(0, 0, 0), 1, null);
         color.chooseColor(p);
         parts.add(p);
-
+        
     }
 
     @Override
@@ -113,6 +117,9 @@ public class Crystal3D implements Crystal {
     @Override
     public void setColorStrategy(ColoringStrategy Color) {
         this.color = Color;
+        for (CParticle3 p : parts) {
+            color.chooseColor(p);
+        }
     }
 
     @Override
@@ -178,6 +185,10 @@ public class Crystal3D implements Crystal {
                 this.p.setX(px + nx);
                 this.p.setY(py + ny);
                 this.p.setZ(py + nz);
+                
+            }
+            if (closest > this.p.getZ()) {
+                closest = this.p.getZ();
             }
         }
 
@@ -234,16 +245,17 @@ public class Crystal3D implements Crystal {
         try {
             PrintWriter writer = new PrintWriter(DLAFrame.fileName + ".pov", "UTF-8");
             writer.println(" #include \"colors.inc\"\n"
-                    + "#include \"textures.inc\"");
-            writer.println("camera {\n"
-                            + "       location  <0, 0, -100>\n"
+                    + "#include \"textures.inc\""
+                    + "background {color White}");
+            writer.println(String.format("camera {\n"
+                            + "       location  <0, 0, %f>\n"
                             + "       look_at   <0, 0, 0>\n"
                             + "       angle 48\n"
-                            + "   }");
-            writer.println("light_source {\n"
-                    + "      <2, 10, -3>\n"
+                            + "   }", closest*5));
+            writer.println(String.format("light_source {\n"
+                    + "      <0, 0, %f>\n"
                     + "      color White\n"
-                    + "    }");
+                    + "    }", closest*5));
             for (CParticle3 p : parts) {
                 double x = p.p.getX();
                 double y = p.p.getY();
@@ -251,7 +263,7 @@ public class Crystal3D implements Crystal {
                 float[] colors = new float[3];
                 p.getColor().getColorComponents(colors);
                 writer.println(String.format("sphere {\n"
-                        + "      <%f,%f,%f>,1\n"
+                        + "      <%f,%f,%f>,0.5\n"
                         + "      texture { pigment { color rgb<%f, %f, %f>} }\n"
                         + "    }", x, y, z,  colors[0], colors[1], colors[2]));
             }
