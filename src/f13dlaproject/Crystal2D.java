@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import static f13dlaproject.Point2.*;
 import static f13dlaproject.Particle2D.*;
+import java.awt.Rectangle;
 import java.io.File;
 import java.util.List;
 import java.util.Iterator;
@@ -62,6 +63,10 @@ public class Crystal2D implements Crystal {
     * holds change position for convert to svg
     */
     private static double highest = 0, leftest = 0;
+    /**
+     * The quadtree of all existing particles in the crystal 
+     */
+    private Quadtree qt;
 
     /*
      * Declaration of inner CParticle class
@@ -129,10 +134,18 @@ public class Crystal2D implements Crystal {
             }
         }
 
+        public double getDrawX() {
+            return (p.getX() * zoom) + (DLAFrame.WIDTH / 2) - DLAFrame.dx;
+        }
+        
+        public double getDrawY() {
+            return (p.getY() * zoom) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy;
+        }
+        
         @Override
         public void draw(Graphics g) { //draw
             g.setColor(c);
-            g.fillOval((int) (p.getX() * zoom - zoom / 2) + (DLAFrame.WIDTH / 2) - DLAFrame.dx, (int) (p.getY() * zoom - zoom / 2) + (DLAFrame.HEIGHT / 2) - DLAFrame.dy, (int) zoom, (int) zoom);
+            g.fillOval((int) this.getDrawX(), (int) this.getDrawY(), (int) zoom, (int) zoom);
         }
 
         @Override
@@ -190,6 +203,8 @@ public class Crystal2D implements Crystal {
         CParticle2 cp = new CParticle2(point2(0, 0), count, null);
         color.chooseColor(cp);
         parts.add(cp);
+        this.qt = new Quadtree(0, new Rectangle(0,0,200,200), 2, 200);
+        qt.insert(cp);
     }
 
     @Override
@@ -213,7 +228,18 @@ public class Crystal2D implements Crystal {
         double dist = po.length();
         CParticle2 part = new CParticle2(po, count, parent);
         color.chooseColor(part);
+        
+        // rebuilds the tree with bigger bounds if the new particle is outside the bounds of the current tree
+        if(part.getPos().getX() > qt.getWidth()/2 - 3 || part.getPos().getY() > qt.getHeight()/2 - 3) {
+            int w = qt.getWidth();
+            int h = qt.getHeight();
+            qt = new Quadtree(0, new Rectangle(0, 0, w + 200, h + 200), 2, w + 200);
+            for(CParticle temp : parts) {
+                qt.insert(temp);
+            }
+        }
         parts.add(part);
+        qt.insert(part);
         if (dist > radius) {
             radius = dist;
             if (DLAFrame.autoZ) {
@@ -252,6 +278,7 @@ public class Crystal2D implements Crystal {
     @Override
     public void clear() { //resets the cystal to nothing
         parts = new ArrayList();
+        qt = new Quadtree(0, new Rectangle(0, 0, 200, 200), 2, 200);
         count = 0;
         CParticle2 cp = new CParticle2(point2(0, 0), count, null);
         color.chooseColor(cp);
@@ -263,8 +290,11 @@ public class Crystal2D implements Crystal {
 
     @Override
     public boolean collides() {
-        for (CParticle2 p : parts) {
-            CParticle recent = p.collides();
+        ArrayList<CParticle2> returnObjects = new ArrayList();
+        CParticle recent;
+        qt.retrieve(returnObjects, new CParticle2(particle2D().getPosition(), count, null));
+        for (CParticle2 p : returnObjects) {
+            recent = p.collides();
             if (recent != null) {
                 this.add(particle2D(), recent);
                 return true;

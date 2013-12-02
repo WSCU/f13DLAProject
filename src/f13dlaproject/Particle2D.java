@@ -138,9 +138,15 @@ public class Particle2D implements Particle {
         p.setX(p.getX() + dir.getX() * vel);
         p.setY(p.getY() + dir.getY() * vel);
         double dist = Math.sqrt(Math.pow(p.getX(), 2)+Math.pow(p.getY(), 2));
-        if(crystal2D().collides()||dist>bounds){
+        if(dist>bounds) {
             reset();
             bounds = crystal2D().getRadius() + 5;
+        }
+        else if(this.p.length() < crystal2D().getRadius()+1) {
+            if(crystal2D().collides()){
+                reset();
+                bounds = crystal2D().getRadius() + 5;
+            }
         }
     }
 
